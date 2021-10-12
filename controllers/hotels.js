@@ -1,11 +1,16 @@
+import Hotel from '../models/Hotel.js'
+
 // @desc    get all hotels
 // @route   GET api/v1/hotels
 // @access  public
 
-const getHotels = (req, res, next) => {
-  res
-    .status(200)
-    .json({ success: true, msg: 'show all hotels' })
+const getHotels = async (req, res, next) => {
+  try {
+    const hotels = await Hotel.find()
+    res.status(200).json({ success: true, data: hotels })
+  } catch (err) {
+    res.status(400).status({ success: false })
+  }
 }
 
 // @desc    get single hotels
@@ -20,8 +25,16 @@ const getHotel = (req, res, next) => {
 // @route   POST api/v1/hotels
 // @access  private
 
-const createHotel = (req, res, next) => {
-  res.status(200).json({ success: true, msg: 'add a new hotel' })
+const createHotel = async (req, res, next) => {
+  try {
+    const hotel = await Hotel.create(req.body)
+    res.status(201).json({
+      success: true,
+      data: hotel,
+    })
+  } catch (err) {
+    res.status(500).status({ success: false })
+  }
 }
 
 // @desc    update hotels
