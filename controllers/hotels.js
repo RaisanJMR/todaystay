@@ -1,4 +1,5 @@
 import Hotel from '../models/Hotel.js'
+import geocoder from '../utils/geocoder.js'
 import ErrorResponse from '../utils/errorResponse.js'
 import asyncHandler from '../middleware/async.js'
 // @desc    get all hotels
@@ -67,4 +68,37 @@ const deleteHotel = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: {} })
 })
 
-export { getHotels, getHotel, createHotel, updateHotel, deleteHotel }
+// @desc    GET hotels within a radius
+// @route   GET /api/v1/hotels/:zipcode/:distance
+// @access  private
+
+const getHotelsInRadius = asyncHandler(async (req, res, next) => {
+  const { zipcode, distance } = req.params
+  // Get lat/lng from geocoder
+  const loc = await geocoder.geocode(zipcode)
+  const lat = loc[0].latitude
+  const lng = loc[0].longitude
+
+  // CAL radius using radians
+  // DIVIDE distance by radius of EARTH
+  // EARTH Radius = 3,963 mi / 6,378 km
+  const radius = distance / 3963
+  const hotels = await Hotel.find({
+    location: {
+      $geoWithin: { $centerSphere: [[lng, lat], radius] },
+    },
+  })
+  res.status(200).json({
+    success: true,
+    count: hotels.length,
+    data: hotels,
+  })
+})
+export {
+  getHotels,
+  getHotel,
+  createHotel,
+  updateHotel,
+  deleteHotel,
+  getHotelsInRadius,
+}
