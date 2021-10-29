@@ -6,6 +6,7 @@ import connectDB from './config/db.js'
 import morgan from 'morgan'
 // ROUTE FILES
 import hotels from './routes/hotels.js'
+import errorHandler from './middleware/error.js'
 // LOAD .env variables
 dotenv.config({ path: './config/config.env' })
 
@@ -24,7 +25,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 // MOUNT ROUTERS
 app.use('/api/v1/hotels', hotels)
-
+app.use(errorHandler)
 const PORT = process.env.PORT || 5001
 
 app.listen(

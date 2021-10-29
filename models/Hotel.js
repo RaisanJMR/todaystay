@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'
+import slugify from 'slugify'
+import geocoder from '../utils/geocoder.js'
 
 const HotelSchema = new mongoose.Schema(
   {
@@ -37,25 +39,23 @@ const HotelSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please add an address'],
     },
-    // location: {
-    //   // GeoJSON Point
-    //   type: {
-    //     type: String,
-    //     enum: ['Point'],
-    //     required: true,
-    //   },
-    //   coordinates: {
-    //     type: [Number],
-    //     required: true,
-    //     index: '2dsphere',
-    //   },
-    //   formattedAddress: String,
-    //   street: String,
-    //   city: String,
-    //   state: String,
-    //   zipcode: String,
-    //   country: String,
-    // },
+    location: {
+      // GeoJSON Point
+      type: {
+        type: String,
+        enum: ['Point'],
+      },
+      coordinates: {
+        type: [Number],
+        index: '2dsphere',
+      },
+      formattedAddress: String,
+      street: String,
+      city: String,
+      state: String,
+      zipcode: String,
+      country: String
+    },
     frontOffice_jobs: {
       type: [String],
       required: true,
@@ -101,10 +101,10 @@ const HotelSchema = new mongoose.Schema(
     //   max: [10, 'Rating must can not be more than 10'],
     // },
     // averageCost: Number,
-    // photo: {
-    //   type: String,
-    //   default: 'no-photo.jpg',
-    // },
+    photo: {
+      type: String,
+      default: 'no-photo.jpg',
+    },
     businessFacilities: {
       type: Boolean,
       default: false,
@@ -142,12 +142,37 @@ const HotelSchema = new mongoose.Schema(
     //   ref: 'User',
     //   required: true,
     // },
-  }
-  //   {
-  //     toJSON: { virtuals: true },
-  //     toObject: { virtuals: true },
-  //   }
+  },
+    // {
+    //   toJSON: { virtuals: true },
+    //   toObject: { virtuals: true },
+    // }
 )
+
+// Create hotel slug from the name
+HotelSchema.pre('save', function(next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
+// Geocode location field
+HotelSchema.pre('save', async function(next) {
+  const loc = await geocoder.geocode(this.address);
+  this.location = {
+    type: 'Point',
+    coordinates: [loc[0].longitude, loc[0].latitude],
+    formattedAddress: loc[0].formattedAddress,
+    street: loc[0].streetName,
+    city: loc[0].city,
+    state: loc[0].stateCode,
+    zipcode: loc[0].zipcode,
+    country: loc[0].countryCode
+  };
+
+  // Do not save address in DB
+  this.address = undefined;
+  next();
+});
 
 // create MODEL from this SCHEMA
 const Hotel = mongoose.model('Hotel', HotelSchema)
