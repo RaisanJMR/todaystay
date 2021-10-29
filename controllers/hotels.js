@@ -2,13 +2,73 @@ import Hotel from '../models/Hotel.js'
 import geocoder from '../utils/geocoder.js'
 import ErrorResponse from '../utils/errorResponse.js'
 import asyncHandler from '../middleware/async.js'
+
 // @desc    get all hotels
 // @route   GET api/v1/hotels
 // @access  public
 
 const getHotels = asyncHandler(async (req, res, next) => {
-  const hotels = await Hotel.find()
-  res.status(200).json({ success: true, count: hotels.length, data: hotels })
+  // console.log(req.query)
+  let query
+  // COPY req.query
+  const reqQuery = { ...req.query }
+
+  // Fields to exclude
+  const removeFields = ['select', 'sort', 'page', 'limit']
+
+  // Loop over removefields and delete them from reqQuery
+  removeFields.forEach((param) => delete reqQuery[param])
+
+  // create query string
+  let queryStr = JSON.stringify(reqQuery)
+
+  // Create operators ($gt, $gte, etc)
+  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `$${match}`)
+  // console.log(queryStr)
+
+  // Finding resource
+  query = Hotel.find(JSON.parse(queryStr))
+
+  // select fields
+  if (req.query.select) {
+    const fields = req.query.select.split(',').join(' ')
+    console.log(fields)
+    query = query.select(fields)
+  }
+  //  Sort
+  if (req.query.sort) {
+    const sortBy = req.query.sort.split(',').join(' ')
+    query = query.sort(sortBy)
+  } else {
+    query = query.sort('-createdAt')
+  }
+
+  // Pagination
+  const page = parseInt(req.query.page, 10) || 1
+  const limit = parseInt(req.query.limit, 10) || 25
+  const startIndex = (page - 1) * limit
+  const endIndex = page * limit
+  const total = await Hotel.countDocuments()
+  query = query.skip(startIndex).limit(limit)
+
+  // Executing query
+  const hotels = await query
+  const pagination = {}
+  if (endIndex < total) {
+    pagination.next = {
+      page: page + 1,
+      limit,
+    }
+  }
+  if (startIndex > 0) {
+    pagination.prev = {
+      page: page - 1,
+      limit,
+    }
+  }
+  res
+    .status(200)
+    .json({ success: true, count: hotels.length, pagination, data: hotels })
 })
 
 // @desc    get single hotels
