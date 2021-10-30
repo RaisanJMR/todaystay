@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 
-
 const RoomSchema = new mongoose.Schema({
   roomtype: {
     type: String,
@@ -33,11 +32,43 @@ const RoomSchema = new mongoose.Schema({
     default: Date.now,
   },
   hotel: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Hotel',
-      required: true
-  }
+    type: mongoose.Schema.ObjectId,
+    ref: 'Hotel',
+    required: true,
+  },
 })
+// Static method to get average of rooms
+RoomSchema.statics.getAverageCost = async function (hotelId) {
+  console.log('calculating average cost....'.blue)
+  const obj = await this.aggregate([
+    {
+      $match: { hotel: hotelId },
+    },
+    {
+      $group: {
+        _id: '$hotel',
+        averageCost: { $avg: '$dailyrent' },
+      },
+    },
+  ])
+  try {
+    await this.model('Hotel').findByIdAndUpdate(hotelId, {
+      averageCost: Math.ceil(obj[0].averageCost / 10) * 10,
+    })
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+// Call getAverageCost after save
+RoomSchema.post('save', function () {
+  this.constructor.getAverageCost(this.hotel)
+})
+// Call getAverageCost before remove
+RoomSchema.pre('remove', function () {
+  this.constructor.getAverageCost(this.hotel)
+})
+
 // create MODEL from this SCHEMA
 const Room = mongoose.model('Room', RoomSchema)
 export default Room

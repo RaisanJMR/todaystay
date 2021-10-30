@@ -27,7 +27,7 @@ const rooms = JSON.parse(
 const importData = async () => {
   try {
     await Hotel.create(hotels)
-    await Room.create(rooms)
+    // await Room.create(rooms)
     console.log('DATA IMPORTED...'.green.inverse)
     process.exit()
   } catch (err) {
