@@ -8,7 +8,6 @@ import asyncHandler from '../middleware/async.js'
 // @access  public
 
 const getHotels = asyncHandler(async (req, res, next) => {
-  // console.log(req.query)
   let query
   // COPY req.query
   const reqQuery = { ...req.query }
@@ -27,7 +26,7 @@ const getHotels = asyncHandler(async (req, res, next) => {
   // console.log(queryStr)
 
   // Finding resource
-  query = Hotel.find(JSON.parse(queryStr))
+  query = Hotel.find(JSON.parse(queryStr)).populate('rooms')
 
   // select fields
   if (req.query.select) {
@@ -119,12 +118,13 @@ const updateHotel = asyncHandler(async (req, res, next) => {
 // @access  private
 
 const deleteHotel = asyncHandler(async (req, res, next) => {
-  const hotel = await Hotel.findByIdAndDelete(req.params.id)
+  const hotel = await Hotel.findById(req.params.id)
   if (!hotel) {
     return next(
       new ErrorResponse(`resource not found with id of ${req.params.id}`, 404)
     )
   }
+  hotel.remove();
   res.status(200).json({ success: true, data: {} })
 })
 

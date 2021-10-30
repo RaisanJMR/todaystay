@@ -1,14 +1,15 @@
 import express from 'express'
+import cors from 'cors'
 import dotenv from 'dotenv'
 import colors from 'colors'
 import connectDB from './config/db.js'
-// import logger from './middleware/logger.js'
 import morgan from 'morgan'
-// ROUTE FILES
+
+
 import hotels from './routes/hotels.js'
 import rooms from './routes/rooms.js'
 import errorHandler from './middleware/error.js'
-// LOAD .env variables
+
 dotenv.config({ path: './config/config.env' })
 
 // Connect to database
@@ -16,10 +17,13 @@ connectDB()
 
 const app = express()
 
+app.use(cors());
+app.options('*', cors());
+
 // Body Parser
 app.use(express.json())
 
-// app.use(logger)
+
 // DEV LOGGING MIDDLEWARE
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))

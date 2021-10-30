@@ -54,7 +54,7 @@ const HotelSchema = new mongoose.Schema(
       city: String,
       state: String,
       zipcode: String,
-      country: String
+      country: String,
     },
     frontOffice_jobs: {
       type: [String],
@@ -143,21 +143,21 @@ const HotelSchema = new mongoose.Schema(
     //   required: true,
     // },
   },
-    // {
-    //   toJSON: { virtuals: true },
-    //   toObject: { virtuals: true },
-    // }
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 )
 
 // Create hotel slug from the name
-HotelSchema.pre('save', function(next) {
-  this.slug = slugify(this.name, { lower: true });
-  next();
-});
+HotelSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true })
+  next()
+})
 
 // Geocode location field
-HotelSchema.pre('save', async function(next) {
-  const loc = await geocoder.geocode(this.address);
+HotelSchema.pre('save', async function (next) {
+  const loc = await geocoder.geocode(this.address)
   this.location = {
     type: 'Point',
     coordinates: [loc[0].longitude, loc[0].latitude],
@@ -166,13 +166,28 @@ HotelSchema.pre('save', async function(next) {
     city: loc[0].city,
     state: loc[0].stateCode,
     zipcode: loc[0].zipcode,
-    country: loc[0].countryCode
-  };
+    country: loc[0].countryCode,
+  }
 
   // Do not save address in DB
-  this.address = undefined;
-  next();
-});
+  this.address = undefined
+  next()
+})
+
+// Cascade delete rooms when a hotel is deleted
+HotelSchema.pre('remove', async function (next) {
+  console.log(`Rooms removed from hotel ${this._id}`)
+  await this.model('Room').deleteMany({ hotel: this._id })
+  next()
+})
+
+// Reverse populate with virtuals
+HotelSchema.virtual('rooms', {
+  ref: 'Room',
+  localField: '_id',
+  foreignField: 'hotel',
+  justOne: false,
+})
 
 // create MODEL from this SCHEMA
 const Hotel = mongoose.model('Hotel', HotelSchema)
