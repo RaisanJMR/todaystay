@@ -5,6 +5,7 @@ import colors from 'colors'
 import connectDB from './config/db.js'
 import morgan from 'morgan'
 import fileupload from 'express-fileupload'
+import cookieParser from 'cookie-parser'
 import path from 'path'
 import hotels from './routes/hotels.js'
 import rooms from './routes/rooms.js'
@@ -23,6 +24,9 @@ app.options('*', cors())
 
 // BODY PARSER
 app.use(express.json())
+
+// COOKIE PARSER
+app.use(cookieParser())
 
 // DEV LOGGING MIDDLEWARE
 if (process.env.NODE_ENV === 'development') {

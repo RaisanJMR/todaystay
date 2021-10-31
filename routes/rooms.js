@@ -9,6 +9,7 @@ import {
 
 import Room from '../models/Room.js'
 import advancedResults from '../middleware/advancedResults.js'
+import { protect, authorize } from '../middleware/auth.js'
 
 const router = express.Router({ mergeParams: true })
 router
@@ -20,7 +21,11 @@ router
     }),
     getRooms
   )
-  .post(addRoom)
-router.route('/:id').get(getRoom).put(updateRoom).delete(deleteRoom)
+  .post(protect, authorize('publisher', 'admin'), addRoom)
+router
+  .route('/:id')
+  .get(getRoom)
+  .put(protect, authorize('publisher', 'admin'), updateRoom)
+  .delete(protect, authorize('publisher', 'admin'), deleteRoom)
 
 export default router

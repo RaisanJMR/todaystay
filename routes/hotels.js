@@ -8,6 +8,7 @@ import {
   getHotelsInRadius,
   hotelPhotoUpload,
 } from '../controllers/hotels.js'
+import { protect, authorize } from '../middleware/auth.js'
 import Hotel from '../models/Hotel.js'
 import advancedResults from '../middleware/advancedResults.js'
 import roomRouter from './rooms.js'
@@ -17,8 +18,17 @@ const router = express.Router()
 router.use('/:hotelId/rooms', roomRouter)
 
 router.route('/radius/:zipcode/:distance').get(getHotelsInRadius)
-router.route('/:id/photo').put(hotelPhotoUpload)
-router.route('/').get(advancedResults(Hotel,'rooms'),getHotels).post(createHotel)
-router.route('/:id').get(getHotel).put(updateHotel).delete(deleteHotel)
+router
+  .route('/:id/photo')
+  .put(protect, authorize('publisher', 'admin'), hotelPhotoUpload)
+router
+  .route('/')
+  .get(advancedResults(Hotel, 'rooms'), getHotels)
+  .post(protect, authorize('publisher', 'admin'), createHotel)
+router
+  .route('/:id')
+  .get(getHotel)
+  .put(protect,authorize('publisher', 'admin'), updateHotel)
+  .delete(protect,authorize('publisher', 'admin'), deleteHotel)
 
 export default router
