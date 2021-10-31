@@ -9,21 +9,18 @@ import asyncHandler from '../middleware/async.js'
 // @access  public
 
 const getRooms = asyncHandler(async (req, res, next) => {
-  let query
+  
   if (req.params.hotelId) {
-    query = Room.find({ hotel: req.params.hotelId })
-  } else {
-    query = Room.find().populate({
-      path: 'hotel',
-      select: 'name description',
+    const rooms = await Room.find({ hotel: req.params.hotelId })
+    return res.status(200).json({
+      success: true,
+      count: rooms.length,
+      data: rooms
     })
+  } else {
+    res.status(200).json(res.advancedResults)
   }
-  const rooms = await query
-  res.status(200).json({
-    success: true,
-    count: rooms.length,
-    data: rooms,
-  })
+  
 })
 
 // @desc    get single room

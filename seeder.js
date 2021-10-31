@@ -10,11 +10,11 @@ import connectDB from './config/db.js'
 // Load env vars
 dotenv.config({ path: './config/config.env' })
 
-// connect to DB
+// CONNECT TO DATABASE
 connectDB()
 
 
-// Read JSON files
+// READ JSON FILES
 const __dirname = path.resolve()
 const hotels = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/hotels.json`, 'utf-8')
@@ -23,18 +23,18 @@ const rooms = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/rooms.json`, 'utf-8')
 )
 
- // import to db
+ // IMPORT TO DATABASE
 const importData = async () => {
   try {
     await Hotel.create(hotels)
-    // await Room.create(rooms)
+    await Room.create(rooms)
     console.log('DATA IMPORTED...'.green.inverse)
     process.exit()
   } catch (err) {
     console.log(err)
   }
 }
-// Delete data
+// DELETE DATA IN DATABASE
 const deleteData = async () => {
   try {
     await Hotel.deleteMany()

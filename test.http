@@ -1,0 +1,22 @@
+
+### Hotels
+GET http://localhost:5001/api/v1/hotels
+
+### Hotels advanced apis
+GET http://localhost:5001/api/v1/hotels?garden=false&location.state=Delhi
+
+### Hotels advanced apis to select only particular fields
+GET http://localhost:5001/api/v1/hotels?select=name,description
+
+### Hotels advanced apis pagination and limit
+GET http://localhost:5001/api/v1/hotels?page=2&limit=2
+
+### Rooms
+GET http://localhost:5001/api/v1/rooms
+
+### Rooms advanced apis to select only particular fields
+GET http://localhost:5001/api/v1/rooms?select=roomtype&page=2&limit=2
+
+### Rooms advanced apis pagination and limit
+GET http://localhost:5001/api/v1/rooms?page=4&limit=2
+

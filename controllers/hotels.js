@@ -2,75 +2,17 @@ import Hotel from '../models/Hotel.js'
 import geocoder from '../utils/geocoder.js'
 import ErrorResponse from '../utils/errorResponse.js'
 import asyncHandler from '../middleware/async.js'
+import path from 'path'
 
-// @desc    get all hotels
+// @desc    GET all hotels
 // @route   GET api/v1/hotels
 // @access  public
 
 const getHotels = asyncHandler(async (req, res, next) => {
-  let query
-  // COPY req.query
-  const reqQuery = { ...req.query }
-
-  // Fields to exclude
-  const removeFields = ['select', 'sort', 'page', 'limit']
-
-  // Loop over removefields and delete them from reqQuery
-  removeFields.forEach((param) => delete reqQuery[param])
-
-  // create query string
-  let queryStr = JSON.stringify(reqQuery)
-
-  // Create operators ($gt, $gte, etc)
-  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `$${match}`)
-  // console.log(queryStr)
-
-  // Finding resource
-  query = Hotel.find(JSON.parse(queryStr)).populate('rooms')
-
-  // select fields
-  if (req.query.select) {
-    const fields = req.query.select.split(',').join(' ')
-    console.log(fields)
-    query = query.select(fields)
-  }
-  //  Sort
-  if (req.query.sort) {
-    const sortBy = req.query.sort.split(',').join(' ')
-    query = query.sort(sortBy)
-  } else {
-    query = query.sort('-createdAt')
-  }
-
-  // Pagination
-  const page = parseInt(req.query.page, 10) || 1
-  const limit = parseInt(req.query.limit, 10) || 25
-  const startIndex = (page - 1) * limit
-  const endIndex = page * limit
-  const total = await Hotel.countDocuments()
-  query = query.skip(startIndex).limit(limit)
-
-  // Executing query
-  const hotels = await query
-  const pagination = {}
-  if (endIndex < total) {
-    pagination.next = {
-      page: page + 1,
-      limit,
-    }
-  }
-  if (startIndex > 0) {
-    pagination.prev = {
-      page: page - 1,
-      limit,
-    }
-  }
-  res
-    .status(200)
-    .json({ success: true, count: hotels.length, pagination, data: hotels })
+  res.status(200).json(res.advancedResults)
 })
 
-// @desc    get single hotels
+// @desc    GET single hotel
 // @route   GET api/v1/hotels/:id
 // @access  public
 
@@ -84,7 +26,7 @@ const getHotel = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: hotel })
 })
 
-// @desc    create new hotels
+// @desc    Create new hotel
 // @route   POST api/v1/hotels
 // @access  private
 
@@ -96,7 +38,7 @@ const createHotel = asyncHandler(async (req, res, next) => {
   })
 })
 
-// @desc    update hotels
+// @desc    Update hotel
 // @route   PUT api/v1/hotels/:id
 // @access  private
 
@@ -113,7 +55,7 @@ const updateHotel = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: hotel })
 })
 
-// @desc    delete hotels
+// @desc    Delete hotel
 // @route   DELETE api/v1/hotels/:id
 // @access  private
 
@@ -124,7 +66,7 @@ const deleteHotel = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`resource not found with id of ${req.params.id}`, 404)
     )
   }
-  hotel.remove();
+  hotel.remove()
   res.status(200).json({ success: true, data: {} })
 })
 
@@ -154,6 +96,49 @@ const getHotelsInRadius = asyncHandler(async (req, res, next) => {
     data: hotels,
   })
 })
+
+// @desc    Upload Photo for hotel
+// @route   PUT api/v1/hotels/:id/photo
+// @access  private
+
+const hotelPhotoUpload = asyncHandler(async (req, res, next) => {
+  const hotel = await Hotel.findById(req.params.id)
+  if (!hotel) {
+    return next(
+      new ErrorResponse(`resource not found with id of ${req.params.id}`, 404)
+    )
+  }
+  if (!req.files) {
+    return next(new ErrorResponse(`please upload a file`, 400))
+  }
+  const file = req.files.file
+  // Make sure image is a photo
+  if (!file.mimetype.startsWith('image')) {
+    return next(new ErrorResponse(`please upload an image file`, 400))
+  }
+  // Check file size
+  if (file.size > process.env.MAX_FILE_UPLOAD) {
+    return next(
+      new ErrorResponse(
+        `please upload an image file less than ${process.env.MAX_FILE_UPLOAD}`,
+        400
+      )
+    )
+  }
+  // Create custom file name
+  file.name = `photo_${hotel._id}${path.parse(file.name).ext}`
+  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
+    if (err) {
+      console.error(err)
+      return next(new ErrorResponse(`problem with file upload`, 500))
+    }
+  })
+  await Hotel.findByIdAndUpdate(req.params.id, { photo: file.name })
+  res.status(200).json({
+    success: true,
+    data: file.name,
+  })
+})
 export {
   getHotels,
   getHotel,
@@ -161,4 +146,5 @@ export {
   updateHotel,
   deleteHotel,
   getHotelsInRadius,
+  hotelPhotoUpload,
 }
