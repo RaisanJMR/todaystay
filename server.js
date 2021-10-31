@@ -8,6 +8,7 @@ import fileupload from 'express-fileupload'
 import path from 'path'
 import hotels from './routes/hotels.js'
 import rooms from './routes/rooms.js'
+import auth from './routes/auth.js'
 import errorHandler from './middleware/error.js'
 
 dotenv.config({ path: './config/config.env' })
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 // MOUNT ROUTERS
 app.use('/api/v1/hotels', hotels)
 app.use('/api/v1/rooms', rooms)
+app.use('/api/v1/auth', auth)
 
 app.use(errorHandler)
 const PORT = process.env.PORT || 5001

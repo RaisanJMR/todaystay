@@ -23,3 +23,5 @@ GET http://localhost:5001/api/v1/rooms?select=roomtype&page=2&limit=2
 ### Rooms advanced apis pagination and limit
 GET http://localhost:5001/api/v1/rooms?page=4&limit=2
 
+### Auth
+POST http://localhost:5001/api/v1/auth/register
