@@ -3,10 +3,10 @@ import Hotel from '../models/Hotel.js'
 import ErrorResponse from '../utils/errorResponse.js'
 import asyncHandler from '../middleware/async.js'
 
-// @desc    get all rooms
-// @route   GET api/v1/hotels
-// @route   GET api/v1/hotels/:hotelId/rooms
-// @access  public
+// @DESC    GET all rooms
+// @ROUTE   GET api/v1/hotels
+// @ROUTE   GET api/v1/hotels/:hotelId/rooms
+// @ACCESS  Public
 
 const getRooms = asyncHandler(async (req, res, next) => {
   
@@ -23,14 +23,14 @@ const getRooms = asyncHandler(async (req, res, next) => {
   
 })
 
-// @desc    get single room
-// @route   GET api/v1/rooms/:id
-// @access  public
+// @DESC    GET single room
+// @ROUTE   GET api/v1/rooms/:id
+// @ACCESS  Public
 
 const getRoom = asyncHandler(async (req, res, next) => {
   const room = await Room.findById(req.params.id).populate({
     path: 'hotel',
-    select: 'name description',
+    select: 'name DESCription',
   })
   if (!room) {
     return next(
@@ -42,9 +42,10 @@ const getRoom = asyncHandler(async (req, res, next) => {
     data: room,
   })
 })
-// @desc    Add room
-// @route   POST api/v1/hotels/:hotelId/rooms
-// @access  private
+
+// @DESC    Add room
+// @ROUTE   POST api/v1/hotels/:hotelId/rooms
+// @ACCESS  Private
 
 const addRoom = asyncHandler(async (req, res, next) => {
   req.body.hotel = req.params.hotelId
@@ -60,9 +61,10 @@ const addRoom = asyncHandler(async (req, res, next) => {
     data: room,
   })
 })
-// @desc    Update room
-// @route   PUT api/v1/rooms/:id
-// @access  private
+
+// @DESC    Update room
+// @ROUTE   PUT api/v1/rooms/:id
+// @ACCESS  Private
 
 const updateRoom = asyncHandler(async (req, res, next) => {
   let room = await Room.findById(req.params.id)
@@ -80,9 +82,10 @@ const updateRoom = asyncHandler(async (req, res, next) => {
     data: room,
   })
 })
-// @desc    Delete room
-// @route   DELETE api/v1/rooms/:id
-// @access  private
+
+// @DESC    Delete room
+// @ROUTE   DELETE api/v1/rooms/:id
+// @ACCESS  Private
 
 const deleteRoom = asyncHandler(async (req, res, next) => {
   const room = await Room.findById(req.params.id)
@@ -97,4 +100,5 @@ const deleteRoom = asyncHandler(async (req, res, next) => {
     data: {}
   })
 })
+
 export { getRooms, getRoom, addRoom, updateRoom,deleteRoom }

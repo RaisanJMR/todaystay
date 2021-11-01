@@ -5,6 +5,7 @@ import colors from 'colors'
 import dotenv from 'dotenv'
 import Hotel from './models/Hotel.js'
 import Room from './models/Room.js'
+import User from './models/User.js'
 import connectDB from './config/db.js'
 
 // Load env vars
@@ -12,7 +13,6 @@ dotenv.config({ path: './config/config.env' })
 
 // CONNECT TO DATABASE
 connectDB()
-
 
 // READ JSON FILES
 const __dirname = path.resolve()
@@ -22,12 +22,16 @@ const hotels = JSON.parse(
 const rooms = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/rooms.json`, 'utf-8')
 )
+const users = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8')
+)
 
- // IMPORT TO DATABASE
+// IMPORT TO DATABASE
 const importData = async () => {
   try {
     await Hotel.create(hotels)
     await Room.create(rooms)
+    await User.create(users)
     console.log('DATA IMPORTED...'.green.inverse)
     process.exit()
   } catch (err) {
@@ -39,6 +43,7 @@ const deleteData = async () => {
   try {
     await Hotel.deleteMany()
     await Room.deleteMany()
+    await User.deleteMany()
     console.log('DATA DESTROYED...'.red.inverse)
     process.exit()
   } catch (err) {
@@ -46,7 +51,7 @@ const deleteData = async () => {
   }
 }
 if (process.argv[2] === '-i') {
-    importData()
+  importData()
 } else if (process.argv[2] === '-d') {
-    deleteData()
+  deleteData()
 }

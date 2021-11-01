@@ -4,17 +4,16 @@ import ErrorResponse from '../utils/errorResponse.js'
 import asyncHandler from '../middleware/async.js'
 import path from 'path'
 
-// @desc    GET all hotels
-// @route   GET api/v1/hotels
-// @access  public
+// @DESC   GET all hotels
+// @ROUTE   GET api/v1/hotels
+// @ACCESS  Public
 
 const getHotels = asyncHandler(async (req, res, next) => {
-  res.status(200).json(res.advancedResults)
+  res.status(200).json(res.advancedResults);
 })
-
-// @desc    GET single hotel
+// @DESC   GET single hotel
 // @route   GET api/v1/hotels/:id
-// @access  public
+// @access  Public
 
 const getHotel = asyncHandler(async (req, res, next) => {
   const hotel = await Hotel.findById(req.params.id)
@@ -26,11 +25,20 @@ const getHotel = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: hotel })
 })
 
-// @desc    Create new hotel
+// @DESC   Create new hotel
 // @route   POST api/v1/hotels
-// @access  private
+// @access  Private
 
 const createHotel = asyncHandler(async (req, res, next) => {
+
+  // Add user to request body
+  req.body.user = req.user.id
+// Check for published hotel
+const publishedHotel = await Hotel.findOne({user: req.user.id})
+// If user is not admin, they can only add one hotel
+if (publishedHotel && req.user.role !== 'admin') {
+  return next(new ErrorResponse(`The user with ID ${req.user.id} has already published a hotel`, 400))
+}
   const hotel = await Hotel.create(req.body)
   res.status(201).json({
     success: true,
@@ -38,9 +46,9 @@ const createHotel = asyncHandler(async (req, res, next) => {
   })
 })
 
-// @desc    Update hotel
+// @DESC   Update hotel
 // @route   PUT api/v1/hotels/:id
-// @access  private
+// @access  Private
 
 const updateHotel = asyncHandler(async (req, res, next) => {
   const hotel = await Hotel.findByIdAndUpdate(req.params.id, req.body, {
@@ -55,9 +63,9 @@ const updateHotel = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: hotel })
 })
 
-// @desc    Delete hotel
+// @DESC   Delete hotel
 // @route   DELETE api/v1/hotels/:id
-// @access  private
+// @access  Private
 
 const deleteHotel = asyncHandler(async (req, res, next) => {
   const hotel = await Hotel.findById(req.params.id)
@@ -70,9 +78,9 @@ const deleteHotel = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: {} })
 })
 
-// @desc    GET hotels within a radius
+// @DESC   GET hotels within a radius
 // @route   GET /api/v1/hotels/:zipcode/:distance
-// @access  private
+// @access  Private
 
 const getHotelsInRadius = asyncHandler(async (req, res, next) => {
   const { zipcode, distance } = req.params
@@ -97,9 +105,9 @@ const getHotelsInRadius = asyncHandler(async (req, res, next) => {
   })
 })
 
-// @desc    Upload Photo for hotel
+// @DESC   Upload Photo for hotel
 // @route   PUT api/v1/hotels/:id/photo
-// @access  private
+// @access  Private
 
 const hotelPhotoUpload = asyncHandler(async (req, res, next) => {
   const hotel = await Hotel.findById(req.params.id)
