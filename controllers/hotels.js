@@ -9,11 +9,11 @@ import path from 'path'
 // @ACCESS  Public
 
 const getHotels = asyncHandler(async (req, res, next) => {
-  res.status(200).json(res.advancedResults);
+  res.status(200).json(res.advancedResults)
 })
 // @DESC   GET single hotel
-// @route   GET api/v1/hotels/:id
-// @access  Public
+// @ROUTE   GET api/v1/hotels/:id
+// @ACCESS  Public
 
 const getHotel = asyncHandler(async (req, res, next) => {
   const hotel = await Hotel.findById(req.params.id)
@@ -26,19 +26,23 @@ const getHotel = asyncHandler(async (req, res, next) => {
 })
 
 // @DESC   Create new hotel
-// @route   POST api/v1/hotels
-// @access  Private
+// @ROUTE   POST api/v1/hotels
+// @ACCESS  Private
 
 const createHotel = asyncHandler(async (req, res, next) => {
-
   // Add user to request body
   req.body.user = req.user.id
-// Check for published hotel
-const publishedHotel = await Hotel.findOne({user: req.user.id})
-// If user is not admin, they can only add one hotel
-if (publishedHotel && req.user.role !== 'admin') {
-  return next(new ErrorResponse(`The user with ID ${req.user.id} has already published a hotel`, 400))
-}
+  // Check for published hotel
+  const publishedHotel = await Hotel.findOne({ user: req.user.id })
+  // If user is not admin, they can only add one hotel
+  if (publishedHotel && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(
+        `The user with ID ${req.user.id} has already published a resource`,
+        400
+      )
+    )
+  }
   const hotel = await Hotel.create(req.body)
   res.status(201).json({
     success: true,
@@ -47,25 +51,35 @@ if (publishedHotel && req.user.role !== 'admin') {
 })
 
 // @DESC   Update hotel
-// @route   PUT api/v1/hotels/:id
-// @access  Private
+// @ROUTE   PUT api/v1/hotels/:id
+// @ACCESS  Private
 
 const updateHotel = asyncHandler(async (req, res, next) => {
-  const hotel = await Hotel.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  })
+  let hotel = await Hotel.findById(req.params.id)
   if (!hotel) {
     return next(
       new ErrorResponse(`resource not found with id of ${req.params.id}`, 404)
     )
   }
+  // Make sure user is hotel owner
+  if (hotel.user.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(
+        `user ${req.params.id} is not authorized to update this resource`,
+        401
+      )
+    )
+  }
+  hotel = await Hotel.findOneAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  })
   res.status(200).json({ success: true, data: hotel })
 })
 
 // @DESC   Delete hotel
-// @route   DELETE api/v1/hotels/:id
-// @access  Private
+// @ROUTE   DELETE api/v1/hotels/:id
+// @ACCESS  Private
 
 const deleteHotel = asyncHandler(async (req, res, next) => {
   const hotel = await Hotel.findById(req.params.id)
@@ -74,13 +88,22 @@ const deleteHotel = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`resource not found with id of ${req.params.id}`, 404)
     )
   }
+  // Make sure user is hotel owner
+  if (hotel.user.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(
+        `user ${req.params.id} is not authorized to delete this resource`,
+        401
+      )
+    )
+  }
   hotel.remove()
   res.status(200).json({ success: true, data: {} })
 })
 
 // @DESC   GET hotels within a radius
-// @route   GET /api/v1/hotels/:zipcode/:distance
-// @access  Private
+// @ROUTE   GET /api/v1/hotels/:zipcode/:distance
+// @ACCESS  Private
 
 const getHotelsInRadius = asyncHandler(async (req, res, next) => {
   const { zipcode, distance } = req.params
@@ -106,14 +129,23 @@ const getHotelsInRadius = asyncHandler(async (req, res, next) => {
 })
 
 // @DESC   Upload Photo for hotel
-// @route   PUT api/v1/hotels/:id/photo
-// @access  Private
+// @ROUTE   PUT api/v1/hotels/:id/photo
+// @ACCESS  Private
 
 const hotelPhotoUpload = asyncHandler(async (req, res, next) => {
   const hotel = await Hotel.findById(req.params.id)
   if (!hotel) {
     return next(
       new ErrorResponse(`resource not found with id of ${req.params.id}`, 404)
+    )
+  }
+  // Make sure user is hotel owner
+  if (hotel.user.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(
+        `user ${req.params.id} is not authorized to delete this resource`,
+        401
+      )
     )
   }
   if (!req.files) {

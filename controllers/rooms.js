@@ -9,18 +9,16 @@ import asyncHandler from '../middleware/async.js'
 // @ACCESS  Public
 
 const getRooms = asyncHandler(async (req, res, next) => {
-  
   if (req.params.hotelId) {
     const rooms = await Room.find({ hotel: req.params.hotelId })
     return res.status(200).json({
       success: true,
       count: rooms.length,
-      data: rooms
+      data: rooms,
     })
   } else {
     res.status(200).json(res.advancedResults)
   }
-  
 })
 
 // @DESC    GET single room
@@ -49,10 +47,20 @@ const getRoom = asyncHandler(async (req, res, next) => {
 
 const addRoom = asyncHandler(async (req, res, next) => {
   req.body.hotel = req.params.hotelId
+  req.body.user = req.user.id
   const hotel = await Hotel.findById(req.params.hotelId)
   if (!hotel) {
     return next(
       new ErrorResponse(`No hotel with the id of ${req.params.hotelId}`, 404)
+    )
+  }
+  // Make sure user is hotel owner
+  if (hotel.user.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(
+        `user ${req.user.id} is not authorized to add a room to hotel ${hotel._id}`,
+        401
+      )
     )
   }
   const room = await Room.create(req.body)
@@ -73,6 +81,15 @@ const updateRoom = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`No room with the id of ${req.params.id}`, 404)
     )
   }
+    // Make sure user is room owner
+    if (room.user.toString() !== req.user.id && req.user.role !== 'admin') {
+      return next(
+        new ErrorResponse(
+          `user ${req.user.id} is not authorized to update room ${room._id}`,
+          401
+        )
+      )
+    }
   room = await Room.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -94,11 +111,20 @@ const deleteRoom = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`No room with the id of ${req.params.id}`, 404)
     )
   }
- await room.remove()
+    // Make sure user is hotel owner
+    if (room.user.toString() !== req.user.id && req.user.role !== 'admin') {
+      return next(
+        new ErrorResponse(
+          `user ${req.user.id} is not authorized to delete room ${room._id}`,
+          401
+        )
+      )
+    }
+  await room.remove()
   res.status(200).json({
     success: true,
-    data: {}
+    data: {},
   })
 })
 
-export { getRooms, getRoom, addRoom, updateRoom,deleteRoom }
+export { getRooms, getRoom, addRoom, updateRoom, deleteRoom }
