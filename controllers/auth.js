@@ -56,6 +56,41 @@ const getMe = asyncHandler(async (req, res, next) => {
   })
 })
 
+// @DESC    Update user password
+// @ROUTE   PUT api/v1/auth/updatepassword
+// @ACCESS  private
+
+const updatePassword = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select('+password')
+  // Check current password
+  if (!(await user.matchPassword(req.body.currentPassword))) {
+    return next(new ErrorResponse('Password is incorrect', 401))
+  }
+  user.password = req.body.newPassword
+  await user.save()
+
+sendTokenResponse(user, 200, res)
+})
+
+// @DESC    Update user details
+// @ROUTE   PUT api/v1/auth/updatedetails
+// @ACCESS  private
+
+const updateDetails = asyncHandler(async (req, res, next) => {
+  const fieldsToUpdate = {
+    name: req.body.name,
+    email: req.body.email,
+  }
+  const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
+    new: true,
+    runValidators: true,
+  })
+  res.status(200).json({
+    success: true,
+    data: user,
+  })
+})
+
 // @DESC    Forgot password
 // @ROUTE   POST api/v1/auth/forgotpassword
 // @ACCESS  public
@@ -138,4 +173,12 @@ const sendTokenResponse = (user, statusCode, res) => {
     .cookie('token', token, options)
     .json({ success: true, token })
 }
-export { login, register, getMe, forgotPassword, resetPassword }
+export {
+  login,
+  register,
+  getMe,
+  forgotPassword,
+  resetPassword,
+  updateDetails,
+  updatePassword,
+}

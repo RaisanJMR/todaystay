@@ -10,6 +10,7 @@ import path from 'path'
 import hotels from './routes/hotels.js'
 import rooms from './routes/rooms.js'
 import auth from './routes/auth.js'
+import users from './routes/users.js'
 import errorHandler from './middleware/error.js'
 
 dotenv.config({ path: './config/config.env' })
@@ -44,6 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/api/v1/hotels', hotels)
 app.use('/api/v1/rooms', rooms)
 app.use('/api/v1/auth', auth)
+app.use('/api/v1/users', users)
 
 app.use(errorHandler)
 const PORT = process.env.PORT || 5001
