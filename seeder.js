@@ -7,6 +7,7 @@ import Hotel from './models/Hotel.js'
 import Room from './models/Room.js'
 import User from './models/User.js'
 import connectDB from './config/db.js'
+import Review from './models/Reviews.js'
 
 // Load env vars
 dotenv.config({ path: './config/config.env' })
@@ -25,6 +26,9 @@ const rooms = JSON.parse(
 const users = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8')
 )
+const review = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/reviews.json`, 'utf-8')
+)
 
 // IMPORT TO DATABASE
 const importData = async () => {
@@ -32,6 +36,7 @@ const importData = async () => {
     await Hotel.create(hotels)
     await Room.create(rooms)
     await User.create(users)
+    await Review.create(review)
     console.log('DATA IMPORTED...'.green.inverse)
     process.exit()
   } catch (err) {
@@ -44,6 +49,7 @@ const deleteData = async () => {
     await Hotel.deleteMany()
     await Room.deleteMany()
     await User.deleteMany()
+    await Review.deleteMany()
     console.log('DATA DESTROYED...'.red.inverse)
     process.exit()
   } catch (err) {
