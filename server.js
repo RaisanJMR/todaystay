@@ -61,6 +61,7 @@ app.use(fileupload())
 const __dirname = path.resolve()
 app.use(express.static(path.join(__dirname, 'public')))
 
+
 // MOUNT ROUTERS
 app.use('/api/v1/hotels', hotels)
 app.use('/api/v1/rooms', rooms)
