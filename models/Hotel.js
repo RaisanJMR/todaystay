@@ -95,11 +95,11 @@ const HotelSchema = new mongoose.Schema(
         'Room Service',
       ],
     },
-    // averageRating: {
-    //   type: Number,
-    //   min: [1, 'Rating must be at least 1'],
-    //   max: [10, 'Rating must can not be more than 10'],
-    // },
+    averageRating: {
+      type: Number,
+      min: [1, 'Rating must be at least 1'],
+      max: [10, 'Rating must can not be more than 10'],
+    },
     averageCost: Number,
     photo: {
       type: String,

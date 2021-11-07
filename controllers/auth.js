@@ -49,10 +49,25 @@ const login = asyncHandler(async (req, res, next) => {
 // @ACCESS  private
 
 const getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id)
+  // user is already available in req due to the protect middleware
+  const user = req.user
   res.status(200).json({
     success: true,
     data: user,
+  })
+})
+// @DESC    Log usre out/ clear cookie
+// @ROUTE   GET api/v1/auth/logout
+// @ACCESS  private
+
+const logOut = asyncHandler(async (req, res, next) => {
+  res.cookie('token', 'none', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  })
+  res.status(200).json({
+    success: true,
+    data: {},
   })
 })
 
@@ -181,4 +196,5 @@ export {
   resetPassword,
   updateDetails,
   updatePassword,
+  logOut,
 }

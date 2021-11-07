@@ -33,8 +33,6 @@ const ReviewSchema = new mongoose.Schema({
   },
 })
 
-// create MODEL from this SCHEMA
-const Review = mongoose.model('Review', ReviewSchema)
 // Prevent user from submitting review more than once per hotel
 ReviewSchema.index(
   {
@@ -45,5 +43,38 @@ ReviewSchema.index(
     unique: true,
   }
 )
+// Static method to get average rating
+ReviewSchema.statics.getAverageRating = async function (hotelId) {
+  console.log('calculating average rating....'.magenta)
+  const obj = await this.aggregate([
+    {
+      $match: { hotel: hotelId },
+    },
+    {
+      $group: {
+        _id: '$hotel',
+        averageRating: { $avg: '$rating' },
+      },
+    },
+  ])
+  try {
+    await this.model('Hotel').findByIdAndUpdate(hotelId, {
+      averageRating: obj[0].averageRating
+    })
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+// Call getAverageRating after save
+ReviewSchema.post('save', function () {
+  this.constructor.getAverageRating(this.hotel)
+})
+// Call getAverageRating before remove
+ReviewSchema.pre('remove', function () {
+  this.constructor.getAverageRating(this.hotel)
+})
+// create MODEL from this SCHEMA
+const Review = mongoose.model('Review', ReviewSchema)
 
 export default Review
