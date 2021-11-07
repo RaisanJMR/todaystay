@@ -5,7 +5,7 @@ const ReviewSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: [true, 'Please add a title for the review'],
-    maxlength: 100
+    maxlength: 100,
   },
   text: {
     type: String,
@@ -33,7 +33,17 @@ const ReviewSchema = new mongoose.Schema({
   },
 })
 
-
 // create MODEL from this SCHEMA
 const Review = mongoose.model('Review', ReviewSchema)
+// Prevent user from submitting review more than once per hotel
+ReviewSchema.index(
+  {
+    hotel: 1,
+    user: 1,
+  },
+  {
+    unique: true,
+  }
+)
+
 export default Review
