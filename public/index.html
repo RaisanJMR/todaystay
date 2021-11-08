@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <title>todaystay</title>
+  </head>
+  <body>
+     <div class=container-fluid>
+       <div class=row>
+         <div class="col-md-12 collection-intro">
+           <h3>todaystay API</h3>
+           <p><p>Backend API documentation for the TodayStay application to manage hotels, rooms, users and authentication<p>For more in depth docs with sample requests, visit the <a href=https://documenter.getpostman.com/view/8886902/UVC3jnkP>Postman Docs</a></div><div class=col-md-12><div class=col-md-3><ul><li><strong><a href=#Authentication>Authentication</a></strong><ul><li><a class=endpoint_menu href=#jump-Authentication-Forgotpassword>Forgot password</a><li><a class=endpoint_menu href=#jump-Authentication-GetCurrentuser>Get Current user</a><li><a class=endpoint_menu href=#jump-Authentication-Loginuser>Login user</a><li><a class=endpoint_menu href=#jump-Authentication-Registernewuser>Register new user</a><li><a class=endpoint_menu href=#jump-Authentication-Resetpassword>Reset password</a><li><a class=endpoint_menu href=#jump-Authentication-Updatepassword>Update password</a><li><a class=endpoint_menu href=#jump-Authentication-Updateuserdetails>Update user details</a><li><a class=endpoint_menu href=#jump-Authentication-Userlogout>User logout</a></ul><li><strong><a href=#Hotels>Hotels</a></strong><ul><li><a class=endpoint_menu href=#jump-Hotels-CreateNewHotel>Create New Hotel</a><li><a class=endpoint_menu href=#jump-Hotels-DeleteSingleHotel>Delete Single Hotel</a><li><a class=endpoint_menu href=#jump-Hotels-GETHotelsbydistance>GET Hotels by distance</a><li><a class=endpoint_menu href=#jump-Hotels-GetSingleHotel>Get Single Hotel</a><li><a class=endpoint_menu href=#jump-Hotels-GetallHotels>Get all Hotels</a><li><a class=endpoint_menu href=#jump-Hotels-UpdateHotelWithAPhoto>Update Hotel With A Photo</a><li><a class=endpoint_menu href=#jump-Hotels-UpdateSingleHotel>Update Single Hotel</a></ul><li><strong><a href=#Reviews>Reviews</a></strong><ul><li><a class=endpoint_menu href=#jump-Reviews-Createareviewforhotel>Create a review for hotel</a><li><a class=endpoint_menu href=#jump-Reviews-Deletereview>Delete review</a><li><a class=endpoint_menu href=#jump-Reviews-Getallreviews>Get all reviews</a><li><a class=endpoint_menu href=#jump-Reviews-Getreviewsforhotel>Get reviews for hotel</a><li><a class=endpoint_menu href=#jump-Reviews-Getsinglereview>Get single review</a><li><a class=endpoint_menu href=#jump-Reviews-Updatereview>Update review</a></ul><li><strong><a href=#Rooms>Rooms</a></strong><ul><li><a class=endpoint_menu href=#jump-Rooms-CreateaNewHotelRoom>Create a New Hotel Room</a><li><a class=endpoint_menu href=#jump-Rooms-DeleteaRoom>Delete a Room</a><li><a class=endpoint_menu href=#jump-Rooms-GETSingleRoom>GET Single Room</a><li><a class=endpoint_menu href=#jump-Rooms-GetAllRooms>Get All Rooms</a><li><a class=endpoint_menu href=#jump-Rooms-GetRoomsAssociatedWithHotel>Get Rooms Associated With Hotel</a><li><a class=endpoint_menu href=#jump-Rooms-UpdateHotelRoom>Update Hotel Room</a></ul><li><strong><a href=#Users>Users</a></strong><ul><li><a class=endpoint_menu href=#jump-Users-Createuser>Create user</a><li><a class=endpoint_menu href=#jump-Users-Deleteuser>Delete user</a><li><a class=endpoint_menu href=#jump-Users-Getallusers>Get all users</a><li><a class=endpoint_menu href=#jump-Users-Getsingleuser>Get single user</a><li><a class=endpoint_menu href=#jump-Users-Updateuser>Update user</a></ul></ul></div><div class=col-md-9><div class="panel panel-default"><div class=panel-heading><h3 class=panel-title id=Authentication>Authentication
+<span class=badge>8</span></h3></div><div class=panel-body><p><p>routes that has to do with user authentication<div class=request-item><div class=panel-group id=accordion-Authentication><div class="panel panel-success" id=jump-Authentication-Forgotpassword><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-success data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-Forgotpassword><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Forgot password</strong> &nbsp;|&nbsp;
+<strong class="request-method border-success">POST</strong>
+&nbsp;
+{{URL}}/api/v1/auth/forgotpassword</h4></a></div><div id=collapse-Authentication-Forgotpassword class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>generate password token and send email</small><br><br><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;email&#34;: &#34;raisanjmr@gmail.com&#34;
+}</span><div class=clearfix></div></div></div></div><div class="panel panel-info" id=jump-Authentication-GetCurrentuser><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-info data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-GetCurrentuser><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get Current user</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/auth/me</h4></a></div><div id=collapse-Authentication-GetCurrentuser class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>get details of current logged-in user</small><br><br></div></div></div><div class="panel panel-success" id=jump-Authentication-Loginuser><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-success data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-Loginuser><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Login user</strong> &nbsp;|&nbsp;
+<strong class="request-method border-success">POST</strong>
+&nbsp;
+{{URL}}/api/v1/auth/login</h4></a></div><div id=collapse-Authentication-Loginuser class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>login user</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;email&#34;: &#34;admin@gmail.com&#34;,
+&#34;password&#34;: &#34;123456&#34;
+}</span><div class=clearfix></div></div></div></div><div class="panel panel-success" id=jump-Authentication-Registernewuser><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-success data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-Registernewuser><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Register new user</strong> &nbsp;|&nbsp;
+<strong class="request-method border-success">POST</strong>
+&nbsp;
+{{URL}}/api/v1/auth/register</h4></a></div><div id=collapse-Authentication-Registernewuser class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>register new user with encrypted password</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;name&#34;: &#34;raisan jmr&#34;,
+&#34;email&#34;: &#34;raisanjmr@gmail.com&#34;,
+&#34;password&#34;: &#34;123456&#34;,
+&#34;role&#34;: &#34;user&#34;
+}</span><div class=clearfix></div></div></div></div><div class="panel panel-warning" id=jump-Authentication-Resetpassword><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-warning data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-Resetpassword><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Reset password</strong> &nbsp;|&nbsp;
+<strong class="request-method border-warning">PUT</strong>
+&nbsp;
+{{URL}}/api/v1/auth/resetpassword/3a57ce65c6682e9b74c4b2a5041217203b9317f9</h4></a></div><div id=collapse-Authentication-Resetpassword class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>reset user password using token, check mailtrap inbox</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;password&#34;: &#34;888888&#34;
+}</span><div class=clearfix></div></div></div></div><div class="panel panel-warning" id=jump-Authentication-Updatepassword><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-warning data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-Updatepassword><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Update password</strong> &nbsp;|&nbsp;
+<strong class="request-method border-warning">PUT</strong>
+&nbsp;
+{{URL}}/api/v1/auth/updatepassword</h4></a></div><div id=collapse-Authentication-Updatepassword class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>update logged in user&rsquo;s password</small><br><br><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;currentPassword&#34;: &#34;888888&#34;,
+&#34;newPassword&#34;: &#34;123456&#34;
+}</span><div class=clearfix></div></div></div></div><div class="panel panel-warning" id=jump-Authentication-Updateuserdetails><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-warning data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-Updateuserdetails><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Update user details</strong> &nbsp;|&nbsp;
+<strong class="request-method border-warning">PUT</strong>
+&nbsp;
+{{URL}}/api/v1/auth/updatedetails</h4></a></div><div id=collapse-Authentication-Updateuserdetails class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>update user details</small><br><br><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;email&#34;: &#34;raisan@gmail.com&#34;
+}</span><div class=clearfix></div></div></div></div><div class="panel panel-info" id=jump-Authentication-Userlogout><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-info data-toggle=collapse data-parent=#accordion-Authentication href=#collapse-Authentication-Userlogout><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>User logout</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/auth/logout</h4></a></div><div id=collapse-Authentication-Userlogout class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>user logout</small><br><br></div></div></div></div></div></div></div><div class="panel panel-default"><div class=panel-heading><h3 class=panel-title id=Hotels>Hotels
+<span class=badge>7</span></h3></div><div class=panel-body><p><p>routes that has to do with hotels<div class=request-item><div class=panel-group id=accordion-Hotels><div class="panel panel-success" id=jump-Hotels-CreateNewHotel><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-success data-toggle=collapse data-parent=#accordion-Hotels href=#collapse-Hotels-CreateNewHotel><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Create New Hotel</strong> &nbsp;|&nbsp;
+<strong class="request-method border-success">POST</strong>
+&nbsp;
+{{URL}}/api/v1/hotels</h4></a></div><div id=collapse-Hotels-CreateNewHotel class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>add new hotel to database. Must be authenticated and must be publisher or admin</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;name&#34;: &#34;test&#34;,
+&#34;description&#34;: &#34;Hyatt Hyderabad Gachibowli is an urban lifestyle property for discerning businessmen and well-traveled corporate guests, as we offer unique inviting experiences through our restful natural ambiance and prime location in financial district, surrounded by I.T Park&#34;,
+&#34;website&#34;: &#34;https://www.hyatthydrabad.in/&#34;,
+&#34;phone&#34;: &#34;(+91) 8869-12547&#34;,
+&#34;email&#34;: &#34;info@hyatthydrabad.com&#34;,
+&#34;address&#34;: &#34;Road no. 2, I.T Park, Gachibowli, 500019 Hyderabad, India &#34;,
+&#34;frontOffice_jobs&#34;: [
+&#34;Housekeeping Employee&#34;,
+&#34;Maintenance &amp; Cleaning&#34;
+],
+&#34;management_jobs&#34;: [
+&#34;Revenue Manager&#34;,
+&#34;Purchase Manager&#34;,
+&#34;Human Resource Manager&#34;,
+&#34;Marketing Manager&#34;
+],
+&#34;foodandBeverage_roles&#34;: [
+&#34;Room Service&#34;,
+&#34;Head Chef&#34;,
+&#34;Kitchen Staff&#34;,
+&#34;Kitchen Manager&#34;
+],
+&#34;businessFacilities&#34;: false,
+&#34;internet&#34;: false,
+&#34;activities&#34;: true,
+&#34;publicTransit&#34;: true,
+&#34;outdoorPool&#34;: true,
+&#34;petFriendly&#34;: true,
+&#34;garden&#34;: false
+}</span><div class=clearfix></div><select class=resp-selector>
+<option value>Select Example Request/Response
+<option value=req_res_Hotels_CreateNewHotel_0_CreateNewHotel>Create New Hotel</select><br><section id=req_res_Hotels_CreateNewHotel_0_CreateNewHotel style=display:none><h4>Example Request</h4><h5>URL: {{URL}}/api/v1/hotels</h5><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;name&#34;: &#34;Umaid Bhawan Palace Jodhpur&#34;,
+&#34;description&#34;: &#34;Built between 1928 and 1943, this grand yellow sandstone palace spreads over 26 acres of gardens, making it one of the largest private residences in the world&#34;,
+&#34;website&#34;: &#34;https://www.umaidbhawan.com&#34;,
+&#34;phone&#34;: &#34;(+91) 93145-03423&#34;,
+&#34;email&#34;: &#34;info@umaidbhawan.com&#34;,
+&#34;address&#34;: &#34;220 Pawtucket St, Lowell, MA 01854&#34;,
+&#34;frontOffice_jobs&#34;: [
+&#34;Hotel Concierge&#34;,
+&#34;Housekeeping Employee&#34;,
+&#34;Housekeeping Manager&#34;
+],
+&#34;management_jobs&#34;: [
+&#34;Hotel / General Manager&#34;,
+&#34;Sales Manager&#34;,
+&#34;Human Resource Manager&#34;
+],
+&#34;foodandBeverage_roles&#34;: [
+&#34;Waiting Staff&#34;,
+&#34;Kitchen Staff&#34;
+],
+&#34;businessFacilities&#34;: true,
+&#34;internet&#34;: false,
+&#34;activities&#34;: false,
+&#34;publicTransit&#34;: true,
+&#34;outdoorPool&#34;: true,
+&#34;petFriendly&#34;: false,
+&#34;garden&#34;: true,
+&#34;photo&#34;: &#34;no-photo.jpg&#34;
+}</span><div class=clearfix></div><h4>Example Response</h4><h5 class="label label-success">Body</h5><span class=resp-prettyprint>{
+&#34;success&#34;: true,
+&#34;data&#34;: {
+&#34;name&#34;: &#34;Umaid Bhawan Palace Jodhpur&#34;,
+&#34;description&#34;: &#34;Built between 1928 and 1943, this grand yellow sandstone palace spreads over 26 acres of gardens, making it one of the largest private residences in the world&#34;,
+&#34;website&#34;: &#34;https://www.umaidbhawan.com&#34;,
+&#34;phone&#34;: &#34;(+91) 93145-03423&#34;,
+&#34;email&#34;: &#34;info@umaidbhawan.com&#34;,
+&#34;location&#34;: {
+&#34;type&#34;: &#34;Point&#34;,
+&#34;coordinates&#34;: [
+-71.324239,
+42.650484
+],
+&#34;formattedAddress&#34;: &#34;220 Pawtucket St, Lowell, MA 01854-3502, US&#34;,
+&#34;street&#34;: &#34;220 Pawtucket St&#34;,
+&#34;city&#34;: &#34;Lowell&#34;,
+&#34;state&#34;: &#34;MA&#34;,
+&#34;zipcode&#34;: &#34;01854-3502&#34;,
+&#34;country&#34;: &#34;US&#34;
+},
+&#34;frontOffice_jobs&#34;: [
+&#34;Hotel Concierge&#34;,
+&#34;Housekeeping Employee&#34;,
+&#34;Housekeeping Manager&#34;
+],
+&#34;management_jobs&#34;: [
+&#34;Hotel / General Manager&#34;,
+&#34;Sales Manager&#34;,
+&#34;Human Resource Manager&#34;
+],
+&#34;foodandBeverage_roles&#34;: [
+&#34;Waiting Staff&#34;,
+&#34;Kitchen Staff&#34;
+],
+&#34;photo&#34;: &#34;no-photo.jpg&#34;,
+&#34;businessFacilities&#34;: true,
+&#34;internet&#34;: false,
+&#34;activities&#34;: false,
+&#34;publicTransit&#34;: true,
+&#34;outdoorPool&#34;: true,
+&#34;petFriendly&#34;: false,
+&#34;garden&#34;: true,
+&#34;_id&#34;: &#34;617b6bbf5d2ac4c7892217ce&#34;,
+&#34;createdAt&#34;: &#34;2021-10-29T03:34:23.781Z&#34;,
+&#34;slug&#34;: &#34;umaid-bhawan-palace-jodhpur&#34;,
+&#34;__v&#34;: 0
+}
+}</span><div class=clearfix></div><h5 class="label label-info">Code:</h5><strong>201</strong></section></div></div></div><div class="panel panel-danger" id=jump-Hotels-DeleteSingleHotel><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-danger data-toggle=collapse data-parent=#accordion-Hotels href=#collapse-Hotels-DeleteSingleHotel><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Delete Single Hotel</strong> &nbsp;|&nbsp;
+<strong class="request-method border-danger">DELETE</strong>
+&nbsp;
+{{URL}}/api/v1/hotels/{:hotelId}</h4></a></div><div id=collapse-Hotels-DeleteSingleHotel class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>delete Hotel from database. access to only publisher and admin</small><br><br></div></div></div><div class="panel panel-info" id=jump-Hotels-GETHotelsbydistance><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-info data-toggle=collapse data-parent=#accordion-Hotels href=#collapse-Hotels-GETHotelsbydistance><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>GET Hotels by distance</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/bootcamps/radius/{:zipcode}/{:distance}</h4></a></div><div id=collapse-Hotels-GETHotelsbydistance class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>get nearest hotel by distance and zipcode</small><br><br><select class=resp-selector>
+<option value>Select Example Request/Response
+<option value=req_res_Hotels_GETHotelsbydistance_0_GEThotelsbyradius>GET hotels by radius</select><br><section id=req_res_Hotels_GETHotelsbydistance_0_GEThotelsbyradius style=display:none><h4>Example Request</h4><h5>URL: {{URL}}/api/v1/hotels/radius/500019/20</h5><h4>Example Response</h4><h5 class="label label-success">Body</h5><span class=resp-prettyprint>{
+&#34;success&#34;: true,
+&#34;count&#34;: 1,
+&#34;data&#34;: [
+{
+&#34;location&#34;: {
+&#34;type&#34;: &#34;Point&#34;,
+&#34;coordinates&#34;: [
+78.3104,
+17.46759
+],
+&#34;formattedAddress&#34;: &#34;Kanchi Gachibowli Road A-2, Hyderabad, Telangana 500019, IN&#34;,
+&#34;street&#34;: &#34;Kanchi Gachibowli Road A-2&#34;,
+&#34;city&#34;: &#34;Hyderabad&#34;,
+&#34;state&#34;: &#34;Telangana&#34;,
+&#34;zipcode&#34;: &#34;500019&#34;,
+&#34;country&#34;: &#34;IN&#34;
+},
+&#34;_id&#34;: &#34;617bbc3b95cfd174699840ab&#34;,
+&#34;name&#34;: &#34;Hyatt Hyderabad Gachibowl&#34;,
+&#34;description&#34;: &#34;Hyatt Hyderabad Gachibowli is an urban lifestyle property for discerning businessmen and well-traveled corporate guests, as we offer unique inviting experiences through our restful natural ambiance and prime location in financial district, surrounded by I.T Park&#34;,
+&#34;website&#34;: &#34;https://www.hyatt.com/&#34;,
+&#34;phone&#34;: &#34;(+91) 40484-81234&#34;,
+&#34;email&#34;: &#34;info@hyatthydrabad.com&#34;,
+&#34;frontOffice_jobs&#34;: [
+&#34;Housekeeping Employee&#34;,
+&#34;Maintenance &amp; Cleaning&#34;
+],
+&#34;management_jobs&#34;: [
+&#34;Revenue Manager&#34;,
+&#34;Purchase Manager&#34;,
+&#34;Human Resource Manager&#34;,
+&#34;Marketing Manager&#34;
+],
+&#34;foodandBeverage_roles&#34;: [
+&#34;Room Service&#34;,
+&#34;Head Chef&#34;,
+&#34;Kitchen Staff&#34;,
+&#34;Kitchen Manager&#34;
+],
+&#34;photo&#34;: &#34;no-photo.jpg&#34;,
+&#34;businessFacilities&#34;: false,
+&#34;internet&#34;: false,
+&#34;activities&#34;: false,
+&#34;publicTransit&#34;: true,
+&#34;outdoorPool&#34;: true,
+&#34;petFriendly&#34;: false,
+&#34;garden&#34;: true,
+&#34;createdAt&#34;: &#34;2021-10-29T09:17:47.648Z&#34;,
+&#34;slug&#34;: &#34;hyatt-hyderabad-gachibowl&#34;,
+&#34;__v&#34;: 0
+}
+]
+}</span><div class=clearfix></div><h5 class="label label-info">Code:</h5><strong>200</strong></section></div></div></div><div class="panel panel-info" id=jump-Hotels-GetSingleHotel><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-info data-toggle=collapse data-parent=#accordion-Hotels href=#collapse-Hotels-GetSingleHotel><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get Single Hotel</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/hotels/{:hotelId}</h4></a></div><div id=collapse-Hotels-GetSingleHotel class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>get details of single hotel by :hotelId</small><br><br><select class=resp-selector>
+<option value>Select Example Request/Response
+<option value=req_res_Hotels_GetSingleHotel_0_GetSingleHotel>Get Single Hotel</select><br><section id=req_res_Hotels_GetSingleHotel_0_GetSingleHotel style=display:none><h4>Example Request</h4><h5>URL: {{URL}}/api/v1/hotels/617bb25ee3eab0fd698f9250</h5><h4>Example Response</h4><h5 class="label label-success">Body</h5><span class=resp-prettyprint>{
+&#34;success&#34;: true,
+&#34;data&#34;: {
+&#34;location&#34;: {
+&#34;type&#34;: &#34;Point&#34;,
+&#34;coordinates&#34;: [
+78.3104,
+17.46759
+],
+&#34;formattedAddress&#34;: &#34;Kanchi Gachibowli Road A-2, Hyderabad, Telangana 500019, IN&#34;,
+&#34;street&#34;: &#34;Kanchi Gachibowli Road A-2&#34;,
+&#34;city&#34;: &#34;Hyderabad&#34;,
+&#34;state&#34;: &#34;Telangana&#34;,
+&#34;zipcode&#34;: &#34;500019&#34;,
+&#34;country&#34;: &#34;IN&#34;
+},
+&#34;_id&#34;: &#34;617bb25ee3eab0fd698f9250&#34;,
+&#34;name&#34;: &#34;Hyatt Hyderabad Gachibowl&#34;,
+&#34;description&#34;: &#34;Hyatt Hyderabad Gachibowli is an urban lifestyle property for discerning businessmen and well-traveled corporate guests, as we offer unique inviting experiences through our restful natural ambiance and prime location in financial district, surrounded by I.T Park&#34;,
+&#34;website&#34;: &#34;https://www.hyatt.com/&#34;,
+&#34;phone&#34;: &#34;(+91) 40484-81234&#34;,
+&#34;email&#34;: &#34;info@hyatthydrabad.com&#34;,
+&#34;frontOffice_jobs&#34;: [
+&#34;Housekeeping Employee&#34;,
+&#34;Maintenance &amp; Cleaning&#34;
+],
+&#34;management_jobs&#34;: [
+&#34;Revenue Manager&#34;,
+&#34;Purchase Manager&#34;,
+&#34;Human Resource Manager&#34;,
+&#34;Marketing Manager&#34;
+],
+&#34;foodandBeverage_roles&#34;: [
+&#34;Room Service&#34;,
+&#34;Head Chef&#34;,
+&#34;Kitchen Staff&#34;,
+&#34;Kitchen Manager&#34;
+],
+&#34;photo&#34;: &#34;no-photo.jpg&#34;,
+&#34;businessFacilities&#34;: true,
+&#34;internet&#34;: false,
+&#34;activities&#34;: false,
+&#34;publicTransit&#34;: true,
+&#34;outdoorPool&#34;: false,
+&#34;petFriendly&#34;: true,
+&#34;garden&#34;: true,
+&#34;createdAt&#34;: &#34;2021-10-29T08:35:42.952Z&#34;,
+&#34;slug&#34;: &#34;hyatt-hyderabad-gachibowl&#34;,
+&#34;__v&#34;: 0
+}
+}</span><div class=clearfix></div><h5 class="label label-info">Code:</h5><strong>200</strong></section></div></div></div><div class="panel panel-info" id=jump-Hotels-GetallHotels><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-info data-toggle=collapse data-parent=#accordion-Hotels href=#collapse-Hotels-GetallHotels><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get all Hotels</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/hotels</h4></a></div><div id=collapse-Hotels-GetallHotels class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>fetch all hotels from database. Includes pagination, filtering.. etc</small><br><br><select class=resp-selector>
+<option value>Select Example Request/Response
+<option value=req_res_Hotels_GetallHotels_0_GetallHotels>Get all Hotels
+<option value=req_res_Hotels_GetallHotels_1_Getonlyname_2Cdesc_26garden_3Dtrue>Get only name,desc&garden=true
+<option value=req_res_Hotels_GetallHotels_2_Getonlyname_2Cdesc_2Cgarden>Get only name,desc,garden
+<option value=req_res_Hotels_GetallHotels_3_limit_3D3_26select_3Dname>limit=3&select=name
+<option value=req_res_Hotels_GetallHotels_4_page_3D2_26limit_3D2_26select_3Dname>page=2&limit=2&select=name</select><br><section id=req_res_Hotels_GetallHotels_0_GetallHotels style=display:none><h4>Example Request</h4><h5>URL: {{URL}}/api/v1/hotels/</h5><h4>Example Response</h4><h5 class="label label-success">Body</h5><span class=resp-prettyprint>{
+&#34;success&#34;: true,
+&#34;count&#34;: 4,
+&#34;data&#34;: [
+{
+&#34;location&#34;: {
+&#34;type&#34;: &#34;Point&#34;,
+&#34;coordinates&#34;: [
+75.78686,
+26.93618
+],
+&#34;formattedAddress&#34;: &#34;Shri Shivandas Hartani Road 2A, Jaipur, Rajasthan 302016, IN&#34;,
+&#34;street&#34;: &#34;Shri Shivandas Hartani Road 2A&#34;,
+&#34;city&#34;: &#34;Jaipur&#34;,
+&#34;state&#34;: &#34;Rajasthan&#34;,
+&#34;zipcode&#34;: &#34;302016&#34;,
+&#34;country&#34;: &#34;IN&#34;
+},
+&#34;_id&#34;: &#34;617bae87e3eab0fd698f9248&#34;,
+&#34;name&#34;: &#34;Umaid Bhawan Palace Jodhpur&#34;,
+&#34;description&#34;: &#34;Built between 1928 and 1943, this grand yellow sandstone palace spreads over 26 acres of gardens, making it one of the largest private residences in the world&#34;,
+&#34;website&#34;: &#34;https://www.umaidbhawan.com&#34;,
+&#34;phone&#34;: &#34;(+91) 93145-03423&#34;,
+&#34;email&#34;: &#34;info@umaidbhawan.com&#34;,
+&#34;frontOffice_jobs&#34;: [
+&#34;Hotel Concierge&#34;,
+&#34;Housekeeping Employee&#34;,
+&#34;Housekeeping Manager&#34;
+],
+&#34;management_jobs&#34;: [
+&#34;Hotel / General Manager&#34;,
+&#34;Sales Manager&#34;,
+&#34;Human Resource Manager&#34;
+],
+&#34;foodandBeverage_roles&#34;: [
+&#34;Waiting Staff&#34;,
+&#34;Kitchen Staff&#34;
+],
+&#34;photo&#34;: &#34;no-photo.jpg&#34;,
+&#34;businessFacilities&#34;: true,
+&#34;internet&#34;: false,
+&#34;activities&#34;: false,
+&#34;publicTransit&#34;: true,
+&#34;outdoorPool&#34;: true,
+&#34;petFriendly&#34;: false,
+&#34;garden&#34;: true,
+&#34;createdAt&#34;: &#34;2021-10-29T08:19:19.521Z&#34;,
+&#34;slug&#34;: &#34;umaid-bhawan-palace-jodhpur&#34;,
+&#34;__v&#34;: 0
+},
+{
+&#34;location&#34;: {
+&#34;type&#34;: &#34;Point&#34;,
+&#34;coordinates&#34;: [
+73.02117,
+26.26772
+],
+&#34;formattedAddress&#34;: &#34;Residency Road, Jodhpur, Rajasthan 342001, 342011, IN&#34;,
+&#34;street&#34;: &#34;Residency Road&#34;,
+&#34;city&#34;: &#34;Jodhpur&#34;,
+&#34;state&#34;: &#34;Rajasthan&#34;,
+&#34;zipcode&#34;: &#34;342001, 342011&#34;,
+&#34;country&#34;: &#34;IN&#34;
+},
+&#34;_id&#34;: &#34;617bb0a9e3eab0fd698f924c&#34;,
+&#34;name&#34;: &#34;Radisson Jodhpur&#34;,
+&#34;description&#34;: &#34;Choose modern charm at our convenient Jodhpur hotel Welcome to Radisson Jodhpur, a pure vegetarian hotel that blends ancient-style architecture with modern amenities for a memorable stay in Sun City. Our upscale property is near destinations like the Clock Tower and Mandore Garden in the city where it’s sunny year-round&#34;,
+&#34;website&#34;: &#34;https://www.radissonhotels.com/&#34;,
+&#34;phone&#34;: &#34;(+91) 94211-16829&#34;,
+&#34;email&#34;: &#34;ifo@radissonjodhpur.com&#34;,
+&#34;frontOffice_jobs&#34;: [
+&#34;Housekeeping Employee&#34;,
+&#34;Front Desk Employee&#34;,
+&#34;Front Desk Manager&#34;
+],
+&#34;management_jobs&#34;: [
+&#34;Hotel / General Manager&#34;,
+&#34;Sales Manager&#34;,
+&#34;Human Resource Manager&#34;
+],
+&#34;foodandBeverage_roles&#34;: [
+&#34;Waiting Staff&#34;,
+&#34;Restaurant Manager&#34;
+],
+&#34;photo&#34;: &#34;no-photo.jpg&#34;,
+&#34;businessFacilities&#34;: true,
+&#34;internet&#34;: false,
+&#34;activities&#34;: false,
+&#34;publicTransit&#34;: true,
+&#34;outdoorPool&#34;: true,
+&#34;petFriendly&#34;: false,
+&#34;garden&#34;: true,
+&#34;createdAt&#34;: &#34;2021-10-29T08:28:25.568Z&#34;,
+&#34;slug&#34;: &#34;radisson-jodhpur&#34;,
+&#34;__v&#34;: 0
+},
+{
+&#34;location&#34;: {
+&#34;type&#34;: &#34;Point&#34;,
+&#34;coordinates&#34;: [
+77.0599,
+28.60982
+],
+&#34;formattedAddress&#34;: &#34;Gali Number 2 A Block Rajapuri, New Delhi, Delhi 110059, IN&#34;,
+&#34;street&#34;: &#34;Gali Number 2 A Block Rajapuri&#34;,
+&#34;city&#34;: &#34;New Delhi&#34;,
+&#34;state&#34;: &#34;Delhi&#34;,
+&#34;zipcode&#34;: &#34;110059&#34;,
+&#34;country&#34;: &#34;IN&#34;
+},
+&#34;_id&#34;: &#34;617bb18ae3eab0fd698f924e&#34;,
+&#34;name&#34;: &#34;Hotel Venus Plaza&#34;,
+&#34;description&#34;: &#34;Hotel Venus is an ideal destination to avail royal comfort in reasonable pricing. For its modern amenities and traditional charm, guests here feel exalted and full of joy. Accommodation in Presidential Suites and Venus Suites amid superb architecture and excellent decorations gives the combined feeling of warmth, opulence and hospitality of a home&#34;,
+&#34;website&#34;: &#34;https://www.hotelvenus.in/&#34;,
+&#34;phone&#34;: &#34;(+91) 94032-96542&#34;,
+&#34;email&#34;: &#34;info@venusplaza.com&#34;,
+&#34;frontOffice_jobs&#34;: [
+&#34;Housekeeping Employee&#34;,
+&#34;Front Desk Employee&#34;,
+&#34;Front Desk Manager&#34;,
+&#34;Maintenance &amp; Cleaning&#34;
+],
+&#34;management_jobs&#34;: [
+&#34;Revenue Manager&#34;,
+&#34;Purchase Manager&#34;
+],
+&#34;foodandBeverage_roles&#34;: [
+&#34;Room Service&#34;,
+&#34;Head Chef&#34;
+],
+&#34;photo&#34;: &#34;no-photo.jpg&#34;,
+&#34;businessFacilities&#34;: true,
+&#34;internet&#34;: false,
+&#34;activities&#34;: false,
+&#34;publicTransit&#34;: true,
+&#34;outdoorPool&#34;: false,
+&#34;petFriendly&#34;: true,
+&#34;garden&#34;: true,
+&#34;createdAt&#34;: &#34;2021-10-29T08:32:10.517Z&#34;,
+&#34;slug&#34;: &#34;hotel-venus-plaza&#34;,
+&#34;__v&#34;: 0
+},
+{
+&#34;location&#34;: {
+&#34;type&#34;: &#34;Point&#34;,
+&#34;coordinates&#34;: [
+78.3104,
+17.46759
+],
+&#34;formattedAddress&#34;: &#34;Kanchi Gachibowli Road A-2, Hyderabad, Telangana 500019, IN&#34;,
+&#34;street&#34;: &#34;Kanchi Gachibowli Road A-2&#34;,
+&#34;city&#34;: &#34;Hyderabad&#34;,
+&#34;state&#34;: &#34;Telangana&#34;,
+&#34;zipcode&#34;: &#34;500019&#34;,
+&#34;country&#34;: &#34;IN&#34;
+},
+&#34;_id&#34;: &#34;617bb25ee3eab0fd698f9250&#34;,
+&#34;name&#34;: &#34;Hyatt Hyderabad Gachibowl&#34;,
+&#34;description&#34;: &#34;Hyatt Hyderabad Gachibowli is an urban lifestyle property for discerning businessmen and well-traveled corporate guests, as we offer unique inviting experiences through our restful natural ambiance and prime location in financial district, surrounded by I.T Park&#34;,
+&#34;website&#34;: &#34;https://www.hyatt.com/&#34;,
+&#34;phone&#34;: &#34;(+91) 40484-81234&#34;,
+&#34;email&#34;: &#34;info@hyatthydrabad.com&#34;,
+&#34;frontOffice_jobs&#34;: [
+&#34;Housekeeping Employee&#34;,
+&#34;Maintenance &amp; Cleaning&#34;
+],
+&#34;management_jobs&#34;: [
+&#34;Revenue Manager&#34;,
+&#34;Purchase Manager&#34;,
+&#34;Human Resource Manager&#34;,
+&#34;Marketing Manager&#34;
+],
+&#34;foodandBeverage_roles&#34;: [
+&#34;Room Service&#34;,
+&#34;Head Chef&#34;,
+&#34;Kitchen Staff&#34;,
+&#34;Kitchen Manager&#34;
+],
+&#34;photo&#34;: &#34;no-photo.jpg&#34;,
+&#34;businessFacilities&#34;: true,
+&#34;internet&#34;: false,
+&#34;activities&#34;: false,
+&#34;publicTransit&#34;: true,
+&#34;outdoorPool&#34;: false,
+&#34;petFriendly&#34;: true,
+&#34;garden&#34;: true,
+&#34;createdAt&#34;: &#34;2021-10-29T08:35:42.952Z&#34;,
+&#34;slug&#34;: &#34;hyatt-hyderabad-gachibowl&#34;,
+&#34;__v&#34;: 0
+}
+]
+}</span><div class=clearfix></div><h5 class="label label-info">Code:</h5><strong>200</strong></section><section id=req_res_Hotels_GetallHotels_1_Getonlyname_2Cdesc_26garden_3Dtrue style=display:none><h4>Example Request</h4><h5>URL: {{URL}}/api/v1/hotels?select=name,description&garden=true</h5><h5 class="label label-info">Query</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>select<td>name,description<td><tr><td>garden<td>true<td></table><h4>Example Response</h4><h5 class="label label-success">Body</h5><span class=resp-prettyprint>{
+&#34;success&#34;: true,
+&#34;count&#34;: 2,
+&#34;data&#34;: [
+{
+&#34;_id&#34;: &#34;617bc9f5bba2fc3255537fbf&#34;,
+&#34;name&#34;: &#34;Hyatt Hyderabad Gachibowl&#34;,
+&#34;description&#34;: &#34;Hyatt Hyderabad Gachibowli is an urban lifestyle property for discerning businessmen and well-traveled corporate guests, as we offer unique inviting experiences through our restful natural ambiance and prime location in financial district, surrounded by I.T Park&#34;
+},
+{
+&#34;_id&#34;: &#34;617bc9f5bba2fc3255537fbc&#34;,
+&#34;name&#34;: &#34;Umaid Bhawan Palace Jodhpur&#34;,
+&#34;description&#34;: &#34;Built between 1928 and 1943, this grand yellow sandstone palace spreads over 26 acres of gardens, making it one of the largest private residences in the world&#34;
+}
+]
+}</span><div class=clearfix></div><h5 class="label label-info">Code:</h5><strong>200</strong></section><section id=req_res_Hotels_GetallHotels_2_Getonlyname_2Cdesc_2Cgarden style=display:none><h4>Example Request</h4><h5>URL: {{URL}}/api/v1/hotels?select=name,description,garden</h5><h5 class="label label-info">Query</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>select<td>name,description,garden<td></table><h4>Example Response</h4><h5 class="label label-success">Body</h5><span class=resp-prettyprint>{
+&#34;success&#34;: true,
+&#34;count&#34;: 4,
+&#34;data&#34;: [
+{
+&#34;_id&#34;: &#34;617bc9f5bba2fc3255537fbf&#34;,
+&#34;name&#34;: &#34;Hyatt Hyderabad Gachibowl&#34;,
+&#34;description&#34;: &#34;Hyatt Hyderabad Gachibowli is an urban lifestyle property for discerning businessmen and well-traveled corporate guests, as we offer unique inviting experiences through our restful natural ambiance and prime location in financial district, surrounded by I.T Park&#34;,
+&#34;garden&#34;: true
+},
+{
+&#34;_id&#34;: &#34;617bc9f5bba2fc3255537fbd&#34;,
+&#34;name&#34;: &#34;Daspan House&#34;,
+&#34;description&#34;: &#34;Choose modern charm at our convenient Jodhpur hotel Welcome to daspan hotels, a pure vegetarian hotel that blends ancient-style architecture with modern amenities for a memorable stay in Sun City. Our upscale property is near destinations like the Clock Tower and Mandore Garden in the city where it’s sunny year-round&#34;,
+&#34;garden&#34;: false
+},
+{
+&#34;_id&#34;: &#34;617bc9f5bba2fc3255537fbe&#34;,
+&#34;name&#34;: &#34;Hotel Venus Plaza&#34;,
+&#34;description&#34;: &#34;Hotel Venus is an ideal destination to avail royal comfort in reasonable pricing. For its modern amenities and traditional charm, guests here feel exalted and full of joy. Accommodation in Presidential Suites and Venus Suites amid superb architecture and excellent decorations gives the combined feeling of warmth, opulence and hospitality of a home&#34;,
+&#34;garden&#34;: false
+},
+{
+&#34;_id&#34;: &#34;617bc9f5bba2fc3255537fbc&#34;,
+&#34;name&#34;: &#34;Umaid Bhawan Palace Jodhpur&#34;,
+&#34;description&#34;: &#34;Built between 1928 and 1943, this grand yellow sandstone palace spreads over 26 acres of gardens, making it one of the largest private residences in the world&#34;,
+&#34;garden&#34;: true
+}
+]
+}</span><div class=clearfix></div><h5 class="label label-info">Code:</h5><strong>200</strong></section><section id=req_res_Hotels_GetallHotels_3_limit_3D3_26select_3Dname style=display:none><h4>Example Request</h4><h5>URL: {{URL}}/api/v1/hotels?limit=3&select=name</h5><h5 class="label label-info">Query</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>limit<td>3<td><tr><td>select<td>name<td></table><h4>Example Response</h4><h5 class="label label-success">Body</h5><span class=resp-prettyprint>{
+&#34;success&#34;: true,
+&#34;count&#34;: 3,
+&#34;data&#34;: [
+{
+&#34;_id&#34;: &#34;617bc9f5bba2fc3255537fbf&#34;,
+&#34;name&#34;: &#34;Hyatt Hyderabad Gachibowl&#34;
+},
+{
+&#34;_id&#34;: &#34;617bc9f5bba2fc3255537fbe&#34;,
+&#34;name&#34;: &#34;Hotel Venus Plaza&#34;
+},
+{
+&#34;_id&#34;: &#34;617bc9f5bba2fc3255537fbd&#34;,
+&#34;name&#34;: &#34;Daspan House&#34;
+}
+]
+}</span><div class=clearfix></div><h5 class="label label-info">Code:</h5><strong>200</strong></section><section id=req_res_Hotels_GetallHotels_4_page_3D2_26limit_3D2_26select_3Dname style=display:none><h4>Example Request</h4><h5>URL: {{URL}}/api/v1/hotels?page=2&limit=2&select=name</h5><h5 class="label label-info">Query</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>page<td>2<td><tr><td>limit<td>2<td><tr><td>select<td>name<td></table><h4>Example Response</h4><h5 class="label label-success">Body</h5><span class=resp-prettyprint>{
+&#34;success&#34;: true,
+&#34;count&#34;: 2,
+&#34;data&#34;: [
+{
+&#34;_id&#34;: &#34;617bc9f5bba2fc3255537fbd&#34;,
+&#34;name&#34;: &#34;Daspan House&#34;
+},
+{
+&#34;_id&#34;: &#34;617bc9f5bba2fc3255537fbc&#34;,
+&#34;name&#34;: &#34;Umaid Bhawan Palace Jodhpur&#34;
+}
+]
+}</span><div class=clearfix></div><h5 class="label label-info">Code:</h5><strong>200</strong></section></div></div></div><div class="panel panel-warning" id=jump-Hotels-UpdateHotelWithAPhoto><div class=panel-heading><small class="pull-right text-muted">formdata</small>
+<a class=text-warning data-toggle=collapse data-parent=#accordion-Hotels href=#collapse-Hotels-UpdateHotelWithAPhoto><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Update Hotel With A Photo</strong> &nbsp;|&nbsp;
+<strong class="request-method border-warning">PUT</strong>
+&nbsp;
+{{URL}}/api/v1/hotels/{:hotelId}</h4></a></div><div id=collapse-Hotels-UpdateHotelWithAPhoto class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>update hotel with a photo(.jpg) for user who added that hotel. Must be logged in</small><br><br><h5 class="label label-primary">Body</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>file<td><td></table></div></div></div><div class="panel panel-warning" id=jump-Hotels-UpdateSingleHotel><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-warning data-toggle=collapse data-parent=#accordion-Hotels href=#collapse-Hotels-UpdateSingleHotel><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Update Single Hotel</strong> &nbsp;|&nbsp;
+<strong class="request-method border-warning">PUT</strong>
+&nbsp;
+{{URL}}/api/v1/hotels/{:hotelId}</h4></a></div><div id=collapse-Hotels-UpdateSingleHotel class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>update single Hotel in database. access to only publisher or admin</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;frontOffice_jobs&#34;: [
+&#34;Hotel Concierge&#34;,
+&#34;Housekeeping Employee&#34;,
+&#34;Housekeeping Manager&#34;
+]
+}</span><div class=clearfix></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class=panel-heading><h3 class=panel-title id=Reviews>Reviews
+<span class=badge>6</span></h3></div><div class=panel-body><p><p>Get all reviews from database and populate with hotel name and descritpion<div class=request-item><div class=panel-group id=accordion-Reviews><div class="panel panel-success" id=jump-Reviews-Createareviewforhotel><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-success data-toggle=collapse data-parent=#accordion-Reviews href=#collapse-Reviews-Createareviewforhotel><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Create a review for hotel</strong> &nbsp;|&nbsp;
+<strong class="request-method border-success">POST</strong>
+&nbsp;
+{{URL}}/api/v1/hotels/{:hotelId}/reviews</h4></a></div><div id=collapse-Reviews-Createareviewforhotel class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>create a review for hotel, admin and users only</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;title&#34;: &#34;Nice hotel&#34;,
+&#34;text&#34;: &#34;this place is a heaven&#34;,
+&#34;rating&#34;: 8
+}</span><div class=clearfix></div><select class=resp-selector>
+<option value>Select Example Request/Response
+<option value=req_res_Reviews_Createareviewforhotel_0_Createareviewforhotel>Create a review for hotel</select><br><section id=req_res_Reviews_Createareviewforhotel_0_Createareviewforhotel style=display:none><h4>Example Request</h4><h5>URL: {{URL}}/api/v1/hotels/5d725a037b292f5f8ceff787/reviews</h5><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;title&#34;: &#34;Nice hotel&#34;,
+&#34;text&#34;: &#34;this place is a heaven&#34;,
+&#34;rating&#34;: 8
+}</span><div class=clearfix></div><h4>Example Response</h4><h5 class="label label-success">Body</h5><span class=resp-prettyprint>{
+&#34;success&#34;: true,
+&#34;data&#34;: {
+&#34;title&#34;: &#34;Nice hotel&#34;,
+&#34;text&#34;: &#34;this place is a heaven&#34;,
+&#34;rating&#34;: 8,
+&#34;hotel&#34;: &#34;5d725a037b292f5f8ceff787&#34;,
+&#34;user&#34;: &#34;61873b1d7b22d2c21f28df3d&#34;,
+&#34;_id&#34;: &#34;618745f72d4cf21cc2ec9c06&#34;,
+&#34;createdAt&#34;: &#34;2021-11-07T03:20:23.267Z&#34;,
+&#34;__v&#34;: 0
+}
+}</span><div class=clearfix></div><h5 class="label label-info">Code:</h5><strong>201</strong></section></div></div></div><div class="panel panel-danger" id=jump-Reviews-Deletereview><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-danger data-toggle=collapse data-parent=#accordion-Reviews href=#collapse-Reviews-Deletereview><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Delete review</strong> &nbsp;|&nbsp;
+<strong class="request-method border-danger">DELETE</strong>
+&nbsp;
+{{URL}}/api/v1/reviews/{:reviewId}</h4></a></div><div id=collapse-Reviews-Deletereview class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>delete review from database</small><br><br></div></div></div><div class="panel panel-info" id=jump-Reviews-Getallreviews><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-info data-toggle=collapse data-parent=#accordion-Reviews href=#collapse-Reviews-Getallreviews><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get all reviews</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/reviews</h4></a></div><div id=collapse-Reviews-Getallreviews class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>get all reviews</small><br><br></div></div></div><div class="panel panel-info" id=jump-Reviews-Getreviewsforhotel><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-info data-toggle=collapse data-parent=#accordion-Reviews href=#collapse-Reviews-Getreviewsforhotel><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get reviews for hotel</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/hotels/{:hotelId}/reviews</h4></a></div><div id=collapse-Reviews-Getreviewsforhotel class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>fetch the reviews for a specific hotel</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><select class=resp-selector>
+<option value>Select Example Request/Response
+<option value=req_res_Reviews_Getreviewsforhotel_0_Getreviewsforhotel>Get reviews for hotel</select><br><section id=req_res_Reviews_Getreviewsforhotel_0_Getreviewsforhotel style=display:none><h4>Example Request</h4><h5>URL: {{URL}}/api/v1/hotels/5d725a037b292f5f8ceff787/reviews</h5><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><h4>Example Response</h4><h5 class="label label-success">Body</h5><span class=resp-prettyprint>{
+&#34;success&#34;: true,
+&#34;count&#34;: 3,
+&#34;data&#34;: [
+{
+&#34;_id&#34;: &#34;5d7a514b5d2c12c7449be024&#34;,
+&#34;title&#34;: &#34;Great overall experience&#34;,
+&#34;text&#34;: &#34;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec viverra feugiat mauris id viverra. Duis luctus ex sed facilisis ultrices. Curabitur scelerisque bibendum ligula, quis condimentum libero fermentum in. Aenean erat erat, aliquam in purus a, rhoncus hendrerit tellus. Donec accumsan justo in felis consequat sollicitudin. Fusce luctus mattis nunc vitae maximus. Curabitur semper felis eu magna laoreet scelerisque&#34;,
+&#34;rating&#34;: 7,
+&#34;hotel&#34;: &#34;5d725a037b292f5f8ceff787&#34;,
+&#34;user&#34;: &#34;5c8a1d5b0190b214360dc037&#34;,
+&#34;createdAt&#34;: &#34;2021-11-06T07:26:50.892Z&#34;,
+&#34;__v&#34;: 0
+},
+{
+&#34;_id&#34;: &#34;5d7a514b5d2c12c7449be025&#34;,
+&#34;title&#34;: &#34;Not worth the money&#34;,
+&#34;text&#34;: &#34;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec viverra feugiat mauris id viverra. Duis luctus ex sed facilisis ultrices. Curabitur scelerisque bibendum ligula, quis condimentum libero fermentum in. Aenean erat erat, aliquam in purus a, rhoncus hendrerit tellus. Donec accumsan justo in felis consequat sollicitudin. Fusce luctus mattis nunc vitae maximus. Curabitur semper felis eu magna laoreet scelerisque&#34;,
+&#34;rating&#34;: 5,
+&#34;hotel&#34;: &#34;5d725a037b292f5f8ceff787&#34;,
+&#34;user&#34;: &#34;5c8a1d5b0190b214360dc038&#34;,
+&#34;createdAt&#34;: &#34;2021-11-06T07:26:50.892Z&#34;,
+&#34;__v&#34;: 0
+},
+{
+&#34;_id&#34;: &#34;618745f72d4cf21cc2ec9c06&#34;,
+&#34;title&#34;: &#34;Nice hotel&#34;,
+&#34;text&#34;: &#34;this place is a heaven&#34;,
+&#34;rating&#34;: 8,
+&#34;hotel&#34;: &#34;5d725a037b292f5f8ceff787&#34;,
+&#34;user&#34;: &#34;61873b1d7b22d2c21f28df3d&#34;,
+&#34;createdAt&#34;: &#34;2021-11-07T03:20:23.267Z&#34;,
+&#34;__v&#34;: 0
+}
+]
+}</span><div class=clearfix></div><h5 class="label label-info">Code:</h5><strong>200</strong></section></div></div></div><div class="panel panel-info" id=jump-Reviews-Getsinglereview><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-info data-toggle=collapse data-parent=#accordion-Reviews href=#collapse-Reviews-Getsinglereview><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get single review</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/reviews/{:reviewId}</h4></a></div><div id=collapse-Reviews-Getsinglereview class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><h6>get single review</h6></small><br><br></div></div></div><div class="panel panel-warning" id=jump-Reviews-Updatereview><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-warning data-toggle=collapse data-parent=#accordion-Reviews href=#collapse-Reviews-Updatereview><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Update review</strong> &nbsp;|&nbsp;
+<strong class="request-method border-warning">PUT</strong>
+&nbsp;
+{{URL}}/api/v1/reviews/{:reviewId}</h4></a></div><div id=collapse-Reviews-Updatereview class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>update a review, users &amp; admin</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;title&#34;: &#34;enjoyed a lot&#34;
+}</span><div class=clearfix></div><select class=resp-selector>
+<option value>Select Example Request/Response
+<option value=req_res_Reviews_Updatereview_0_Updatereview>Update review</select><br><section id=req_res_Reviews_Updatereview_0_Updatereview style=display:none><h4>Example Request</h4><h5>URL: {{URL}}/api/v1/reviews/6187522943b2cff3291dc437</h5><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;title&#34;: &#34;enjoyed a lot&#34;
+}</span><div class=clearfix></div><h4>Example Response</h4><h5 class="label label-success">Body</h5><span class=resp-prettyprint>{
+&#34;success&#34;: true,
+&#34;data&#34;: {
+&#34;_id&#34;: &#34;6187522943b2cff3291dc437&#34;,
+&#34;title&#34;: &#34;enjoyed a lot&#34;,
+&#34;text&#34;: &#34;this place is a heaven&#34;,
+&#34;rating&#34;: 3,
+&#34;hotel&#34;: &#34;618751d943b2cff3291dc42f&#34;,
+&#34;user&#34;: &#34;6187519643b2cff3291dc424&#34;,
+&#34;createdAt&#34;: &#34;2021-11-07T04:12:25.868Z&#34;,
+&#34;__v&#34;: 0
+}
+}</span><div class=clearfix></div><h5 class="label label-info">Code:</h5><strong>200</strong></section></div></div></div></div></div></div></div><div class="panel panel-default"><div class=panel-heading><h3 class=panel-title id=Rooms>Rooms
+<span class=badge>6</span></h3></div><div class=panel-body><p><p>routes that has to do with rooms<div class=request-item><div class=panel-group id=accordion-Rooms><div class="panel panel-success" id=jump-Rooms-CreateaNewHotelRoom><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-success data-toggle=collapse data-parent=#accordion-Rooms href=#collapse-Rooms-CreateaNewHotelRoom><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Create a New Hotel Room</strong> &nbsp;|&nbsp;
+<strong class="request-method border-success">POST</strong>
+&nbsp;
+{{URL}}/api/v1/hotels/{:hotelId}/rooms</h4></a></div><div id=collapse-Rooms-CreateaNewHotelRoom class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><h6>create a new room for a specific hotel</h6></small><br><br><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;roomtype&#34;: &#34;Family Suite&#34;,
+&#34;description&#34;: &#34;A room with a multi-head bed. May be occupied by one or more people including children.offers a king bed for parents and bunk beds or a sleeper sofa for the children&#34;,
+&#34;area&#34;: 57,
+&#34;dailyrent&#34;: 41000,
+&#34;star&#34;: &#34;4 star&#34;,
+&#34;ac&#34;: false
+}</span><div class=clearfix></div></div></div></div><div class="panel panel-danger" id=jump-Rooms-DeleteaRoom><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-danger data-toggle=collapse data-parent=#accordion-Rooms href=#collapse-Rooms-DeleteaRoom><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Delete a Room</strong> &nbsp;|&nbsp;
+<strong class="request-method border-danger">DELETE</strong>
+&nbsp;
+{{URL}}/api/v1/rooms/{:roomId}</h4></a></div><div id=collapse-Rooms-DeleteaRoom class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>delete room from database</small><br><br></div></div></div><div class="panel panel-info" id=jump-Rooms-GETSingleRoom><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-info data-toggle=collapse data-parent=#accordion-Rooms href=#collapse-Rooms-GETSingleRoom><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>GET Single Room</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/rooms/{:roomId}</h4></a></div><div id=collapse-Rooms-GETSingleRoom class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>get single room by :id</small><br><br></div></div></div><div class="panel panel-info" id=jump-Rooms-GetAllRooms><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-info data-toggle=collapse data-parent=#accordion-Rooms href=#collapse-Rooms-GetAllRooms><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get All Rooms</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/rooms</h4></a></div><div id=collapse-Rooms-GetAllRooms class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>get all rooms</small><br><br></div></div></div><div class="panel panel-info" id=jump-Rooms-GetRoomsAssociatedWithHotel><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-info data-toggle=collapse data-parent=#accordion-Rooms href=#collapse-Rooms-GetRoomsAssociatedWithHotel><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get Rooms Associated With Hotel</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/hotels/{:hotelId}/rooms</h4></a></div><div id=collapse-Rooms-GetRoomsAssociatedWithHotel class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>get all rooms associated with a hotel</small><br><br></div></div></div><div class="panel panel-warning" id=jump-Rooms-UpdateHotelRoom><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-warning data-toggle=collapse data-parent=#accordion-Rooms href=#collapse-Rooms-UpdateHotelRoom><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Update Hotel Room</strong> &nbsp;|&nbsp;
+<strong class="request-method border-warning">PUT</strong>
+&nbsp;
+{{URL}}/api/v1/rooms/{:roomId}</h4></a></div><div id=collapse-Rooms-UpdateHotelRoom class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>update single room by :id</small><br><br><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;area&#34;: 65,
+&#34;dailyrent&#34;: 72000
+}</span><div class=clearfix></div><select class=resp-selector>
+<option value>Select Example Request/Response
+<option value=req_res_Rooms_UpdateHotelRoom_0_UpdateHotelRoom>Update Hotel Room</select><br><section id=req_res_Rooms_UpdateHotelRoom_0_UpdateHotelRoom style=display:none><h4>Example Request</h4><h5>URL: {{URL}}/api/v1/rooms/617c12a4420021ad99c6d613</h5><h5 class="label label-warning">Headers</h5><table class="table table-hover"><thead><tr><th>Key<th>Value<th>Description<tbody><tr><td>Content-Type<td>application/json<td><p>JSON type</table><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;area&#34;: 65,
+&#34;dailyrent&#34;: 72000
+}</span><div class=clearfix></div><h4>Example Response</h4><h5 class="label label-success">Body</h5><span class=resp-prettyprint>{
+&#34;success&#34;: true,
+&#34;data&#34;: {
+&#34;_id&#34;: &#34;617c12a4420021ad99c6d613&#34;,
+&#34;roomtype&#34;: &#34;Single room&#34;,
+&#34;description&#34;: &#34;All units consist of a seating area with a sofa, a dining area, and a fully equipped kitchen with various cooking facilities, including a dishwasher, a microwave, a fridge and an oven. A stovetop is also featured, as well as a kettle and a coffee machine.&#34;,
+&#34;area&#34;: 65,
+&#34;dailyrent&#34;: 72000,
+&#34;star&#34;: &#34;4 star&#34;,
+&#34;ac&#34;: true,
+&#34;hotel&#34;: &#34;617c1296420021ad99c6d607&#34;,
+&#34;createdAt&#34;: &#34;2021-10-30T09:47:23.442Z&#34;,
+&#34;__v&#34;: 0
+}
+}</span><div class=clearfix></div><h5 class="label label-info">Code:</h5><strong>200</strong></section></div></div></div></div></div></div></div><div class="panel panel-default"><div class=panel-heading><h3 class=panel-title id=Users>Users
+<span class=badge>5</span></h3></div><div class=panel-body><p><p>routes that has to do with users, admin only<div class=request-item><div class=panel-group id=accordion-Users><div class="panel panel-success" id=jump-Users-Createuser><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-success data-toggle=collapse data-parent=#accordion-Users href=#collapse-Users-Createuser><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Create user</strong> &nbsp;|&nbsp;
+<strong class="request-method border-success">POST</strong>
+&nbsp;
+{{URL}}/api/v1/users/</h4></a></div><div id=collapse-Users-Createuser class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>add new user to database, admin only</small><br><br><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;name&#34;: &#34;james doe&#34;,
+&#34;email&#34;: &#34;auctin@gmail.com&#34;,
+&#34;password&#34;: &#34;123456&#34;
+}</span><div class=clearfix></div></div></div></div><div class="panel panel-danger" id=jump-Users-Deleteuser><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-danger data-toggle=collapse data-parent=#accordion-Users href=#collapse-Users-Deleteuser><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Delete user</strong> &nbsp;|&nbsp;
+<strong class="request-method border-danger">DELETE</strong>
+&nbsp;
+{{URL}}/api/v1/users/{:userId}</h4></a></div><div id=collapse-Users-Deleteuser class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>delete user from database, admin only</small><br><br></div></div></div><div class="panel panel-info" id=jump-Users-Getallusers><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-info data-toggle=collapse data-parent=#accordion-Users href=#collapse-Users-Getallusers><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get all users</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/users</h4></a></div><div id=collapse-Users-Getallusers class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>get all user, admin only</small><br><br></div></div></div><div class="panel panel-info" id=jump-Users-Getsingleuser><div class=panel-heading><small class="pull-right text-muted"></small><a class=text-info data-toggle=collapse data-parent=#accordion-Users href=#collapse-Users-Getsingleuser><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Get single user</strong> &nbsp;|&nbsp;
+<strong class="request-method border-info">GET</strong>
+&nbsp;
+{{URL}}/api/v1/users/{:userId}</h4></a></div><div id=collapse-Users-Getsingleuser class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>get single user by :id, admin only</small><br><br></div></div></div><div class="panel panel-warning" id=jump-Users-Updateuser><div class=panel-heading><small class="pull-right text-muted">raw</small>
+<a class=text-warning data-toggle=collapse data-parent=#accordion-Users href=#collapse-Users-Updateuser><h4 class=panel-title><span class="glyphicon glyphicon-plus"></span><strong>Update user</strong> &nbsp;|&nbsp;
+<strong class="request-method border-warning">PUT</strong>
+&nbsp;
+{{URL}}/api/v1/users/{:userId}</h4></a></div><div id=collapse-Users-Updateuser class="panel-collapse collapse"><div class=panel-body><h5 class="label label-default">Description</h5><br><small><p>update user details using :id, admin only</small><br><br><h5 class="label label-primary">Body</h5><span class=resp-prettyprint>{
+&#34;name&#34;: &#34;james oxford&#34;
+}</span><div class=clearfix></div></div></div></div></div></div></div></div></div></div></div>
+    <script src="./script.js"></script>
+  </body>
+</html>

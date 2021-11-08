@@ -4,7 +4,31 @@
 
 ## Usage
 
-Rename "config/config.env.env" to "config/config.env" and update the values/settings to your own
+create "config/config.env" in root and update the following values/settings to your own
+
+```
+NODE_ENV=development
+PORT=5000
+
+MONGO_URI='your mongodb uri'
+
+GEOCODER_PROVIDER=mapquest
+GEOCODER_API_KEY='your mapquest api key'
+
+FILE_UPLOAD_PATH=./public/uploads
+MAX_FILE_UPLOAD=1000000
+
+JWT_SECRET='your jwt secret'
+JWT_EXPIRE=30d
+JWT_COOKIE_EXPIRE=30
+
+SMTP_HOST=smtp.mailtrap.io
+SMTP_PORT=2525
+SMTP_EMAIL='your smtp email key'
+SMTP_PASSWORD='your smpt password'
+FROM_EMAIL='your from email'
+FROM_NAME='your from name'
+```
 
 ## Install Dependencies
 
@@ -35,7 +59,7 @@ node seeder -i
 ```
 ## Demo
 
-For more in depth docs with sample requests, visit the [Postman Docs](https://documenter.getpostman.com/view/8886902/UVC3jnkP)
+For more in depth docs with sample requests, visit the [Postman Docs](https://documenter.getpostman.com/view/8886902/UVC3jnkP) or visit home route ```/```
 
 - Version: 1.0.0
 - License: MIT
