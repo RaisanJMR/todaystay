@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 import Hotel from './models/Hotel.js'
 import Room from './models/Room.js'
 import User from './models/User.js'
-import connectDB from './config/db.js'
+import connectDB from './db/db.js'
 import Review from './models/Reviews.js'
 
 // Load env vars

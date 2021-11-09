@@ -1,0 +1,114 @@
+[
+  {
+    "_id": "5d713995b721c3bb38c1f5d0",
+    "user": "5d7a514b5d2c12c7449be045",
+    "name": "Umaid Bhawan Palace Jodhpur",
+    "description": "Built between 1928 and 1943, this grand yellow sandstone palace spreads over 26 acres of gardens, making it one of the largest private residences in the world",
+    "website": "https://www.umaidbhawan.com",
+    "phone": "(+91) 93145-03423",
+    "email": "info@umaidbhawan.com",
+    "address": "Hotel Umaid Bhawan, Jaipur D1-2A,Behind Collectorate, (Via) Bank Road, Bani Park, Jaipur-302016, Rajasthan, INDIA",
+    "frontOffice_jobs": [
+      "Hotel Concierge",
+      "Housekeeping Employee",
+      "Housekeeping Manager"
+    ],
+    "management_jobs": [
+      "Hotel / General Manager",
+      "Sales Manager",
+      "Human Resource Manager"
+    ],
+    "foodandBeverage_roles": ["Waiting Staff", "Kitchen Staff"],
+    "businessFacilities": true,
+    "internet": false,
+    "activities": false,
+    "publicTransit": true,
+    "outdoorPool": true,
+    "petFriendly": false,
+    "garden": true,
+    "photo": "no-photo.jpg"
+  },
+  {
+    "_id": "5d713a66ec8f2b88b8f830b8",
+    "user": "5d7a514b5d2c12c7449be046",
+    "name": "Daspan House",
+    "description": "Choose modern charm at our convenient Jodhpur hotel Welcome to daspan hotels, a pure vegetarian hotel that blends ancient-style architecture with modern amenities for a memorable stay in Sun City. Our upscale property is near destinations like the Clock Tower and Mandore Garden in the city where it’s sunny year-round",
+    "website": "https://www.daspanhotels.com/",
+    "phone": "(+91) 95466-12658",
+    "email": "ifo@dashpanhouse.com",
+    "address": "Old loco road, Ratanada, Ratanada, 342001 Jodhpur, India",
+    "frontOffice_jobs": [
+      "Housekeeping Employee",
+      "Front Desk Employee",
+      "Front Desk Manager"
+    ],
+    "management_jobs": ["Hotel / General Manager", "IT Manager"],
+    "foodandBeverage_roles": ["Waiting Staff", "Restaurant Manager"],
+    "businessFacilities": true,
+    "internet": true,
+    "activities": true,
+    "publicTransit": true,
+    "outdoorPool": true,
+    "petFriendly": false,
+    "garden": false,
+    "photo": "no-photo.jpg"
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff787",
+    "user": "5c8a1d5b0190b214360dc031",
+    "name": "Hotel Venus Plaza",
+    "description": "Hotel Venus is an ideal destination to avail royal comfort in reasonable pricing. For its modern amenities and traditional charm, guests here feel exalted and full of joy. Accommodation in Presidential Suites and Venus Suites amid superb architecture and excellent decorations gives the combined feeling of warmth, opulence and hospitality of a home",
+    "website": "https://www.hotelvenus.in/",
+    "phone": "(+91) 94032-96542",
+    "email": "info@venusplaza.com",
+    "address": "A Block, Near Indira Gandhi International Airport, National Highway -8, Mahipalpur, 110037 New Delhi, India",
+    "frontOffice_jobs": [
+      "Housekeeping Employee",
+      "Front Desk Employee",
+      "Front Desk Manager",
+      "Maintenance & Cleaning"
+    ],
+    "management_jobs": ["Revenue Manager", "Purchase Manager"],
+    "foodandBeverage_roles": ["Room Service", "Head Chef"],
+    "businessFacilities": false,
+    "internet": false,
+    "activities": true,
+    "publicTransit": true,
+    "outdoorPool": true,
+    "petFriendly": true,
+    "garden": false,
+    "photo": "no-photo.jpg"
+  },
+  {
+    "_id": "5d725a1b7b292f5f8ceff788",
+    "user": "5c8a1d5b0190b214360dc032",
+    "name": "Hyatt Hyderabad Gachibowl",
+    "description": "Hyatt Hyderabad Gachibowli is an urban lifestyle property for discerning businessmen and well-traveled corporate guests, as we offer unique inviting experiences through our restful natural ambiance and prime location in financial district, surrounded by I.T Park",
+    "website": "https://www.hyatt.com/",
+    "phone": "(+91) 40484-81234",
+    "email": "info@hyatthydrabad.com",
+    "address": "Road no. 2, I.T Park, Gachibowli, 500019 Hyderabad, India",
+    "frontOffice_jobs": ["Housekeeping Employee", "Maintenance & Cleaning"],
+    "management_jobs": [
+      "Revenue Manager",
+      "Purchase Manager",
+      "Human Resource Manager",
+      "Marketing Manager"
+    ],
+    "foodandBeverage_roles": [
+      "Room Service",
+      "Head Chef",
+      "Kitchen Staff",
+      "Kitchen Manager"
+    ],
+
+    "businessFacilities": false,
+    "internet": false,
+    "activities": false,
+    "publicTransit": true,
+    "outdoorPool": true,
+    "petFriendly": false,
+    "garden": true,
+    "photo": "no-photo.jpg"
+  }
+]
