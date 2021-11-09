@@ -70,6 +70,9 @@ app.use('/api/v1/users', users)
 app.use('/api/v1/reviews', reviews)
 
 app.use(errorHandler)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname+'/public/index.html'));
+})
 const PORT = process.env.PORT || 5000
 
 app.listen(
