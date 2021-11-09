@@ -59,7 +59,8 @@ node seeder -i
 ```
 ## Demo
 
-For more in depth docs with sample requests, visit the [Postman Docs](https://documenter.getpostman.com/view/8886902/UVC3jnkP) or visit home route ```/```
+For more in depth docs with sample requests, visit the [Postman Docs](https://documenter.getpostman.com/view/8886902/UVC3jnkP)
+and replace ```{{URL}}``` with [https://todaystay.herokuapp.com/](https://todaystay.herokuapp.com/)
 
 - Version: 1.0.0
 - License: MIT
