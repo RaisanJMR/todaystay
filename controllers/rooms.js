@@ -28,7 +28,7 @@ const getRooms = asyncHandler(async (req, res, next) => {
 const getRoom = asyncHandler(async (req, res, next) => {
   const room = await Room.findById(req.params.id).populate({
     path: 'hotel',
-    select: 'name DESCription',
+    select: 'name description',
   })
   if (!room) {
     return next(

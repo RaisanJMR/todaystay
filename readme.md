@@ -4,7 +4,7 @@
 
 ## Usage
 
-create "config/config.env" in root and update the following values/settings to your own
+create ```config/config.env``` in root and update the following values/settings in  ```config/config.env.env``` to your own
 
 ```
 NODE_ENV=development

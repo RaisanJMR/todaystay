@@ -1,8 +1,10 @@
 const advancedResults = (model, populate) => async (req, res, next) => {
+  console.log(model)
+  console.log(populate)
   let query
   // COPY req.query
   const reqQuery = { ...req.query }
-
+  console.log(reqQuery)
   // Fields to exclude
   const removeFields = ['select', 'sort', 'page', 'limit']
 
@@ -41,8 +43,8 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   const total = await model.countDocuments()
   query = query.skip(startIndex).limit(limit)
 
-  if(populate) {
-      query = query.populate(populate)
+  if (populate) {
+    query = query.populate(populate)
   }
   // Executing query
   const results = await query

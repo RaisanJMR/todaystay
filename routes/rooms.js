@@ -12,16 +12,7 @@ import advancedResults from '../middleware/advancedResults.js'
 import { protect, authorize } from '../middleware/auth.js'
 
 const router = express.Router({ mergeParams: true })
-router
-  .route('/')
-  .get(
-    advancedResults(Room, {
-      path: 'hotel',
-      select: 'name description',
-    }),
-    getRooms
-  )
-  .post(protect, authorize('publisher', 'admin'), addRoom)
+router.route('/').get(advancedResults(Room, {path: 'hotel', select: 'name description'}),getRooms).post(protect, authorize('publisher', 'admin'), addRoom)
 router
   .route('/:id')
   .get(getRoom)
